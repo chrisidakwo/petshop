@@ -16,11 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->text('unique_id');
             $table->string('token_title');
-            $table->json('restrictions')->default([]);
-            $table->json('permissions')->default([]);
-            $table->timestamp('expires_at');
-            $table->timestamp('last_used_at');
-            $table->timestamp('refreshed_at');
+            $table->json('restrictions')->nullable();
+            $table->json('permissions')->nullable();
+            $table->timestamp('expires_at')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('refreshed_at')->nullable();
             $table->timestamps();
         });
     }

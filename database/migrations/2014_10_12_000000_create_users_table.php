@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->char('avatar', 36);
+            $table->char('avatar', 36)->nullable()->comment('UUID of the image stored in files table');
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->tinyInteger('is_marketing')->default(0);
-            $table->timestamp('last_login_at');
+            $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
