@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
 
-use App\Models\Traits\HasUuid;
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
 
 class File extends Model
 {
-    use HasUuid;
-
     protected $fillable = ['uuid', 'name', 'path', 'size', 'type'];
 }

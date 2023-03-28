@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
 
-use App\Models\Traits\HasSlug;
-use App\Models\Traits\HasUuid;
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
 
 class Brand extends Model
 {
-    use HasSlug, HasUuid;
-
     protected $fillable = ['uuid', 'title',  'slug'];
 }
