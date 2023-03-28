@@ -15,9 +15,10 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     public function response(
-        array $data = [], int $status = Response::HTTP_OK, array $headers = []
-    ): JsonResponse
-    {
+        array $data = [],
+        int $status = Response::HTTP_OK,
+        array $headers = [],
+    ): JsonResponse {
         return response()->json([
             'success' => 1,
             'data' => $data,
@@ -27,9 +28,11 @@ class Controller extends BaseController
     }
 
     public function error(
-        string $message, array $errors = [], int $status = Response::HTTP_INTERNAL_SERVER_ERROR, array $headers = [],
-    ): JsonResponse
-    {
+        string $message,
+        array $errors = [],
+        int $status = Response::HTTP_INTERNAL_SERVER_ERROR,
+        array $headers = [],
+    ): JsonResponse {
         return response()->json([
             'success' => 0,
             'data' => [],

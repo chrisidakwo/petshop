@@ -44,11 +44,11 @@ class Handler extends ExceptionHandler
     /**
      * @param ValidationException $e
      * @param Request $request
-     *
-     * @return JsonResponse|\Illuminate\Http\Response|Response
      */
-    protected function convertValidationExceptionToResponse(ValidationException $e, $request): JsonResponse|\Illuminate\Http\Response|Response
-    {
+    protected function convertValidationExceptionToResponse(
+        ValidationException $e,
+        $request,
+    ): JsonResponse|\Illuminate\Http\Response|Response {
         return response()->json([
             'success' => 0,
             'data' => [],
@@ -69,7 +69,7 @@ class Handler extends ExceptionHandler
                 'data' => [],
                 'error' => $e instanceof HttpExceptionInterface ? $e->getMessage() : 'Server Error',
                 'trace' => config('app.debug')
-                    ? collect($e->getTrace())->map(fn($trace) => Arr::except($trace, ['args']))->all()
+                    ? collect($e->getTrace())->map(fn ($trace) => Arr::except($trace, ['args']))->all()
                     : [],
             ],
             $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500,
