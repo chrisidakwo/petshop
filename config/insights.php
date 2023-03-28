@@ -64,6 +64,7 @@ return [
 
     'remove' => [
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses::class,
+        \SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff::class,
     ],
 
