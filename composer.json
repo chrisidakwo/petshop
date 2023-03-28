@@ -37,7 +37,7 @@
     },
     "scripts": {
         "phpstan": "./vendor/bin/phpstan analyse",
-        "code-analysis": "@php artisan insights",
+        "code-analysis": "@php artisan insights --fix",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

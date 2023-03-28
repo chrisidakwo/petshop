@@ -26,8 +26,7 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
     public function updateSlug(): void
     {
         if (in_array('slug', $this->fillable)
-            && ($this->wasChanged('title') || $this->getAttribute('title')))
-        {
+            && ($this->wasChanged('title') || $this->getAttribute('title'))) {
             $this->setAttribute('slug', Str::slug($this->getAttribute('title')));
         }
     }

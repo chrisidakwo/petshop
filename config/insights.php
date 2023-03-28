@@ -66,6 +66,7 @@ return [
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff::class,
+        \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
     ],
 
     'config' => [
@@ -75,6 +76,11 @@ return [
         ],
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods::class => [
             'title' => 'The usage of private methods is not idiomatic in Laravel.',
+        ],
+        \SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class => [
+            'exclude' => [
+                'app/Exceptions/Handler.php',
+            ],
         ],
     ],
 

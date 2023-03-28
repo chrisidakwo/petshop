@@ -14,6 +14,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    /**
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $headers
+     */
     public function response(
         array $data = [],
         int $status = Response::HTTP_OK,
@@ -27,6 +31,10 @@ class Controller extends BaseController
         ], $status, $headers, JSON_PRETTY_PRINT);
     }
 
+    /**
+     * @param array<string, mixed> $errors
+     * @param array<string, mixed> $headers
+     */
     public function error(
         string $message,
         array $errors = [],
