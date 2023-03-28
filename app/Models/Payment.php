@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Payment extends Model
 {
     public const TYPE_CREDIT_CARD = 'credit_card';
-    public const TYPE_CASH = 'cash';
+    public const TYPE_CASH = 'cash_on_delivery';
     public const TYPE_BANK_TRANSFER = 'bank_transfer';
 
     protected $fillable = ['uuid', 'type', 'details'];

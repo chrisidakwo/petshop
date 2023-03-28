@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 
 abstract class Model extends \Illuminate\Database\Eloquent\Model
 {
+    use HasFactory;
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function generateUuid(): void
     {
         if (in_array('uuid', $this->fillable)) {
@@ -17,7 +25,9 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
 
     public function updateSlug(): void
     {
-        if ($this->getAttribute('slug') && $this->wasChanged('title')) {
+        if (in_array('slug', $this->fillable)
+            && ($this->wasChanged('title') || $this->getAttribute('title')))
+        {
             $this->setAttribute('slug', Str::slug($this->getAttribute('title')));
         }
     }
