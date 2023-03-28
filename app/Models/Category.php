@@ -10,6 +10,9 @@ class Category extends Model
 {
     protected $fillable = ['uuid', 'title', 'slug'];
 
+    /**
+     * @return HasMany<Product>
+     */
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

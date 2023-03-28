@@ -17,6 +17,9 @@ class Product extends Model
         'metadata' => 'array',
     ];
 
+    /**
+     * @return BelongsTo<Category, Product>
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

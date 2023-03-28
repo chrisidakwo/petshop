@@ -18,6 +18,9 @@ class JwtToken extends Model
         'refreshed_at' => 'datetime',
     ];
 
+    /**
+     * @return BelongsTo<User, JwtToken>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

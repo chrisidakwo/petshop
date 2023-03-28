@@ -26,6 +26,9 @@ class Payment extends Model
         return [self::TYPE_CREDIT_CARD, self::TYPE_CASH, self::TYPE_BANK_TRANSFER];
     }
 
+    /**
+     * @return HasMany<Order>
+     */
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);

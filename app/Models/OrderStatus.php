@@ -10,6 +10,9 @@ class OrderStatus extends Model
 {
     protected $fillable = ['uuid', 'title'];
 
+    /**
+     * @return HasMany<Order>
+     */
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);

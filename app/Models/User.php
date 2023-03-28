@@ -15,30 +15,37 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, \Illuminate\Auth\MustVerifyEmail;
 
+    /**
+     * @var array<string>
+     */
     protected $fillable = [
         'uuid', 'first_name', 'last_name', 'is_admin', 'email', 'password', 'avatar', 'address', 'phone_number',
         'is_marketing', 'last_login_at',
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    /**
+     * @var array<string>
+     */
+    protected $hidden = ['password', 'remember_token'];
 
     /**
-     * The attributes that should be cast.
-     *
      * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return HasMany<JwtToken>
+     */
     public function jwtTokens(): HasMany
     {
         return $this->hasMany(JwtToken::class);
     }
 
+    /**
+     * @return HasMany<Order>
+     */
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
