@@ -20,3 +20,4 @@ yarn-error.log
 .gitmsg
 _ide_helper.php
 .phpstorm.meta.php
+*.pem

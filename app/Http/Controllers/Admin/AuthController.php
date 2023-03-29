@@ -13,4 +13,9 @@ class AuthController extends Controller
     {
         return $this->response();
     }
+
+    public function logout(): JsonResponse
+    {
+        return $this->response();
+    }
 }
