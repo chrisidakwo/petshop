@@ -10,7 +10,7 @@ use App\Exceptions\JwtException;
 use App\Models\JwtToken;
 use App\Models\User;
 use DateTimeImmutable;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class JwtTokenService
 {
@@ -46,9 +46,9 @@ class JwtTokenService
         $expiresAt = $decodedToken['exp'];
 
         return JwtToken::query()->create([
-            'user_id' => $user->getAuthIdentifier(),
+            'user_id' => $user->id, // @phpstan-ignore-line
             'unique_id' => $token,
-            'token_title' => "Token for $user->name",
+            'token_title' => "Token for {$user->first_name} {$user->last_name}", // @phpstan-ignore-line
             'restrictions' => [],
             'permissions' => [],
             'expires_at' => $expiresAt->getTimestamp(),

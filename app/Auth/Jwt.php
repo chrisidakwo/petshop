@@ -131,6 +131,11 @@ class Jwt
         return $this->jwtProvider->decode((string) $this->token);
     }
 
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
     /**
      * @throws JwtException
      */

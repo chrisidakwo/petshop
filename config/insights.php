@@ -68,6 +68,7 @@ return [
         \SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\Classes\SuperfluousExceptionNamingSniff::class,
+        \SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff::class,
     ],
 
     'config' => [
@@ -83,6 +84,17 @@ return [
                 'app/Exceptions/Handler.php',
                 'app/Providers/JwtAuthServiceProvider.php',
             ],
+        ],
+        \NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff::class => [
+            'exclude' => [
+                'app/Auth/Jwt.php',
+                'app/Auth/JwtGuard.php',
+            ]
+        ],
+        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses::class => [
+            'exclude' => [
+                'app/Exceptions/InvalidBearerToken.php',
+            ]
         ],
     ],
 

@@ -18,13 +18,7 @@ class AuthHeader implements HttpParser
             if ($position !== false) {
                 $header = substr($header, $position + strlen('bearer'));
 
-                // dd($header);
-
-                return trim(
-                    str_contains($header, ',')
-                        ? (string) strstr($header, ',', true)
-                        : $header
-                );
+                return trim($header);
             }
         }
 

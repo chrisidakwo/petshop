@@ -2,13 +2,44 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use App\Auth\Jwt;
+use App\Auth\Providers\JwtProvider;
+use App\Http\Parsers\AuthHeader;
+use App\Http\Services\JwtTokenService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected Jwt $jwt;
+    protected JwtTokenService $jwtTokenService;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $provider = new JwtProvider(
+            $this->getTestSecretKey(),
+            [
+                'private' => $this->getTestPrivateKey(),
+                'public' => $this->getTestPublicKey(),
+            ]
+        );
+
+        $this->app->bind(\App\Auth\Contracts\Providers\JWT::class, fn () => $provider);
+
+        $this->jwt = new Jwt(
+            resolve(Request::class),
+            [new AuthHeader()],
+            $provider,
+        );
+
+        $this->jwtTokenService = resolve(JwtTokenService::class);
+    }
 
     public function testItShouldLoginAValidCredentials()
     {
@@ -75,17 +106,20 @@ class AuthControllerTest extends TestCase
             ]);
     }
 
-    public function testItSuccessfullyLogsOutAValidToken(): void
+    public function testItSuccessfullyLogsOutWhenTokenIsPresentInRequestHeader(): void
     {
         $user = $this->createPredictableAdminUser();
-        Auth::login($user);
 
-        $this->assertDatabaseCount('jwt_tokens', 1);
+        $token = $this->jwt->generateTokenFromUser($user);
+        $this->jwtTokenService->create($token,$user);
 
-        $response = $this->getJson(route('api.admin.logout'));
+        $response = $this->getJson(route('api.admin.logout'), [
+            'Authorization' => "Bearer $token",
+        ]);
 
         $response->assertStatus(200);
         $this->assertNull(Auth::user());
+        $this->assertDatabaseCount('jwt_tokens', 0);
     }
 
     public function testItCannotAccessLogoutRouteIfAuthUserIsNotValid(): void
@@ -95,5 +129,20 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(401)->assertJson([
             'error' => 'Unauthorized',
         ]);
+    }
+
+    protected function getTestPrivateKey(): string
+    {
+        return base_path('tests/Keys/private.pem');
+    }
+
+    protected function getTestPublicKey(): string
+    {
+        return base_path('tests/Keys/public.pem');
+    }
+
+    protected function getTestSecretKey(): string
+    {
+        return 'tNLBusVcRts2Wq4YN94a30uG6g7VvOQwInrrsnvnTMTWYZx9MxdxiPG0ArDM7euY';
     }
 }

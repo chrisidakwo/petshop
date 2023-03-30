@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Auth;
 
 use App\Auth\Contracts\JwtSubject;
+use App\Exceptions\InvalidBearerToken;
 use App\Exceptions\JwtException;
 use App\Http\Services\JwtTokenService;
 use Illuminate\Auth\GuardHelpers;
@@ -50,6 +51,7 @@ class JwtGuard implements Guard
         $token = $this->getToken();
 
         if ($token && ($result = $this->jwt->validateToken()) && $this->validateSubject()) {
+            /** @var array<string, mixed> $result */
             $tokenExists = $this->jwtTokenService->find($token);
 
             if ($tokenExists === null) {
@@ -104,13 +106,35 @@ class JwtGuard implements Guard
         return $token;
     }
 
+    public function authenticate(): Authenticatable|false
+    {
+        $token = $this->getToken();
+        if ($token === null) {
+            return false;
+        }
+
+        $jwtToken = $this->jwtTokenService->find($token);
+        if ($jwtToken === null) {
+            throw InvalidBearerToken::fromMessage('Failed to authenticate user');
+        }
+
+        $decodedToken = $this->jwt->getDecodedToken();
+        if (! $user = $this->provider->retrieveById($decodedToken['sub'])) {
+            return false;
+        }
+
+        return $user;
+    }
+
     public function logout(): void
     {
-        $this->jwtTokenService->removeToken($this->token);
-
-        $this->token = '';
+        $this->jwtTokenService->removeToken(
+            is_string($this->token) && strlen($this->token) > 0 ? $this->token : (string) $this->jwt->getToken()
+        );
 
         $this->user = null;
+
+        $this->token = '';
 
         $this->jwt->unsetToken();
     }
@@ -143,7 +167,7 @@ class JwtGuard implements Guard
 
     protected function getToken(): ?string
     {
-        if (isset($this->token) && $this->token !== null) {
+        if (isset($this->token) && strlen($this->token) > 0) {
             return $this->token;
         }
 

@@ -4,8 +4,39 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\PaymentFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Payment
+ *
+ * @property int $id
+ * @property string $uuid
+ * @property string $type
+ * @property array $details
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ *
+ * @property-read Collection<int, Order> $orders
+ * @property-read int|null $orders_count
+ *
+ * @method static PaymentFactory factory($count = null, $state = [])
+ * @method static Builder|Payment newModelQuery()
+ * @method static Builder|Payment newQuery()
+ * @method static Builder|Payment query()
+ * @method static Builder|Payment whereCreatedAt($value)
+ * @method static Builder|Payment whereDetails($value)
+ * @method static Builder|Payment whereId($value)
+ * @method static Builder|Payment whereType($value)
+ * @method static Builder|Payment whereUpdatedAt($value)
+ * @method static Builder|Payment whereUuid($value)
+ *
+ * @mixin Eloquent
+ */
 class Payment extends Model
 {
     public const TYPE_CREDIT_CARD = 'credit_card';
