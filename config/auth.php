@@ -41,7 +41,7 @@ return [
             'provider' => 'users',
         ],
 
-        'jwt' => [
+        'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
@@ -68,10 +68,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-
-        'jwt' => [
-
         ],
     ],
 
@@ -127,20 +123,20 @@ return [
     'jwt' => [
         /*
         |--------------------------------------------------------------------------
-        | Algorithm
+        | JWT TTL
         |--------------------------------------------------------------------------
         |
-        | These are the supported algorithms: RS256, RS384 & RS512 / ES256, ES384 & ES512
+        | Token expiry time (in minutes)
         |
         */
-        'algo' => \Lcobucci\JWT\Signer\Rsa\Sha256::class,
+        'ttl' => env('JWT_TTL', 60),
 
         /*
         |--------------------------------------------------------------------------
         | JWT Secret
         |--------------------------------------------------------------------------
         |
-        | More like paraphrase. Used together with the private key.
+        | Paraphrase used together with the private key.
         |
         */
         'secret' => env('JWT_SECRET'),

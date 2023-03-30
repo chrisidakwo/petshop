@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
         return response()->json([
             'success' => 0,
             'data' => [],
-            'error' => $exception->getMessage(),
+            'error' => 'Unauthorized',
             'errors' => [],
             'trace' => [],
         ], Response::HTTP_UNAUTHORIZED);

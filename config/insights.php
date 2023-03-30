@@ -67,6 +67,7 @@ return [
         \SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff::class,
         \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
+        \SlevomatCodingStandard\Sniffs\Classes\SuperfluousExceptionNamingSniff::class,
     ],
 
     'config' => [
@@ -80,6 +81,7 @@ return [
         \SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class => [
             'exclude' => [
                 'app/Exceptions/Handler.php',
+                'app/Providers/JwtAuthServiceProvider.php',
             ],
         ],
     ],

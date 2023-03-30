@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Auth\Providers;
 
 use App\Auth\Contracts\Providers\JWT;
+use App\Exceptions\InvalidBearerToken;
 use App\Exceptions\JwtException;
 use DateTimeImmutable;
 use Exception;
@@ -12,62 +13,32 @@ use Illuminate\Support\Arr;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\Signer\Ecdsa\Sha256;
-use Lcobucci\JWT\Signer\Ecdsa\Sha384;
-use Lcobucci\JWT\Signer\Ecdsa\Sha512;
-use Lcobucci\JWT\Signer\Rsa;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
+use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
 class JwtProvider implements JWT
 {
-    public const ALGO_RS256 = 'RS256';
-    public const ALGO_RS384 = 'RS384';
-    public const ALGO_RS512 = 'RS512';
-    public const ALGO_ES256 = 'ES256';
-    public const ALGO_ES384 = 'ES384';
-    public const ALGO_ES512 = 'ES512';
-
     protected Configuration $config;
     protected string $secret;
-    protected string $algo;
     /**
      * @var array<string>
      */
     protected array $keys;
 
     /**
-     * Signers that this provider supports.
-     *
-     * @var array<string, string>
-     */
-    protected array $signers = [
-        self::ALGO_RS256 => Rsa\Sha256::class,
-        self::ALGO_RS384 => Rsa\Sha384::class,
-        self::ALGO_RS512 => Rsa\Sha512::class,
-        self::ALGO_ES256 => Sha256::class,
-        self::ALGO_ES384 => Sha384::class,
-        self::ALGO_ES512 => Sha512::class,
-    ];
-
-    /**
      * @param array<string, string> $keys
      *
      * @throws JwtException
      */
-    public function __construct(string $secret, string $algo, array $keys)
+    public function __construct(string $secret, array $keys)
     {
         $this->secret = $secret;
-        $this->algo = $algo;
         $this->keys = $keys;
 
         $this->validateKeys($keys);
 
-        $this->config = Configuration::forAsymmetricSigner(
-            $this->getSigner(),
-            $this->getSigningKey(),
-            $this->getVerificationKey(),
-        );
+        $this->config = $this->buildConfig();
     }
 
     /**
@@ -117,29 +88,33 @@ class JwtProvider implements JWT
             throw new JwtException('Could not properly decode the provided token', 500);
         }
 
-        // TODO: Validate token. While testing, noticed that a token might be encoded with a different
-        //   secret (passphrase) and this method would still return the token. We need to carry out some extra checks
-        //   on the token
+        if (! $this->config->validator()->validate($parsedToken, ...$this->config->validationConstraints())) {
+            throw InvalidBearerToken::fromMessage('Token could not be validated', 500);
+        }
 
         return $parsedToken->claims()->all();
     }
 
     public function getSecretKey(): string
     {
-        return $this->keys['secret'] ?? '';
+        return $this->secret;
     }
 
-    /**
-     * @throws JwtException
-     */
-    protected function getSigner(): Signer
+    protected function buildConfig(): Configuration
     {
-        if (! array_key_exists($this->algo, $this->signers)) {
-            throw new JwtException('The provided algorithm is not supported');
-        }
+        $signer = new Signer\Rsa\Sha512();
 
-        /** @var Signer $signer */
-        return new $this->signers[$this->algo]();
+        $config = Configuration::forAsymmetricSigner(
+            $signer,
+            $this->getSigningKey(),
+            $this->getVerificationKey(),
+        );
+
+        $config->setValidationConstraints(
+            new SignedWith($signer, $this->getVerificationKey()),
+        );
+
+        return $config;
     }
 
     protected function getSigningKey(): Signer\Key\InMemory
@@ -185,8 +160,6 @@ class JwtProvider implements JWT
     {
         $this->validateClaims($payload);
 
-        // 'iss', 'iat', 'exp', 'nbf', 'sub', 'jti'
-
         /** @var non-empty-string $jti */
         $jti = $payload[RegisteredClaims::ID];
 
@@ -214,16 +187,13 @@ class JwtProvider implements JWT
             ->expiresAt($exp);
 
         // Unset pre-expected claims, so we can add other custom claims (eg: as might be defined on a model)
-        unset($payload[RegisteredClaims::ID]);
-        unset($payload[RegisteredClaims::SUBJECT]);
-        unset($payload[RegisteredClaims::ISSUER]);
-        unset($payload[RegisteredClaims::ISSUED_AT]);
-        unset($payload[RegisteredClaims::NOT_BEFORE]);
-        unset($payload[RegisteredClaims::EXPIRATION_TIME]);
+        $payload = Arr::except($payload, [
+            RegisteredClaims::ID, RegisteredClaims::SUBJECT, RegisteredClaims::ISSUER,
+            RegisteredClaims::ISSUED_AT, RegisteredClaims::NOT_BEFORE, RegisteredClaims::EXPIRATION_TIME,
+        ]);
 
         foreach ($payload as $key => $value) {
-            // @phpstan-ignore-next-line
-            $builder = $builder->withClaim($key, $value);
+            $builder = $builder->withClaim($key, $value); // @phpstan-ignore-line
         }
 
         return $builder;

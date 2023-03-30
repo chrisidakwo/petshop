@@ -31,7 +31,7 @@ class JwtProviderTest extends TestCase
         $header = json_decode(base64_decode(explode('.', $token)[0]), true);
 
         $this->assertEquals('JWT', $header['typ']);
-        $this->assertEquals(JwtProvider::ALGO_RS256, $header['alg']);
+        $this->assertEquals('RS512', $header['alg']);
 
         $decodedToken = $provider->decode($token);
 
@@ -58,21 +58,7 @@ class JwtProviderTest extends TestCase
             'email' => 'chris.idakwo@gmail.com',
         ];
 
-        $this->getProvider(JwtProvider::ALGO_ES256)->encode($payload);
-    }
-
-    public function testItThrowsAnExceptionWhenTokenIsSignedWithADifferentKey(): void
-    {
-        // TODO: Complete this test after implementing validation for decoded token
-        self::markTestSkipped();
-
-        $payload = $this->getPayload();
-
-        $token = $this->getProvider(JwtProvider::ALGO_RS256, Str::random(32))
-            ->encode($payload);
-
-        // getProvider() is loaded with a different secret key
-        $this->getProvider()->decode($token);
+        $this->getProvider()->encode($payload);
     }
 
     public function testItThrowsAnExceptionOnAnInvalidTokenValue(): void
@@ -80,15 +66,7 @@ class JwtProviderTest extends TestCase
         $this->expectException(JwtException::class);
         $this->expectExceptionMessage('Could not decode the provided token.');
 
-        $this->getProvider(JwtProvider::ALGO_RS256, Str::random(5))->decode('invalid.Toke.n');
-    }
-
-    public function testItThrowsAnExceptionOnAnInvalidAlgorithm(): void
-    {
-        $this->expectException(JwtException::class);
-        $this->expectExceptionMessage('The provided algorithm is not supported');
-
-        $this->getProvider(Str::random(7), 'H456')->decode('inva24li.d.T$ok.en');
+        $this->getProvider(Str::random(5))->decode('invalid.Toke.n');
     }
 
     /**
@@ -100,7 +78,6 @@ class JwtProviderTest extends TestCase
         $this->expectExceptionMessage('The path "path/to/nothing.pem" does not contain a valid key file');
 
         $this->getProvider(
-            JwtProvider::ALGO_RS256,
             Str::random(24),
             [
                 'private' => 'path/to/nothing.pem',
@@ -117,7 +94,6 @@ class JwtProviderTest extends TestCase
         $this->expectExceptionMessage('The path "path/to/nothing.pem" does not contain a valid key file');
 
         $this->getProvider(
-            JwtProvider::ALGO_RS256,
             Str::random(24),
             [
                 'public' => 'path/to/nothing.pem',
@@ -147,13 +123,11 @@ class JwtProviderTest extends TestCase
      * @throws JwtException
      */
     public function getProvider(
-        string $algo = JwtProvider::ALGO_RS256,
         string $secretKey = null,
         array $payload = [],
     ): JwtProvider {
         return new JwtProvider(
             $secretKey === null ? $this->getTestSecretKey() : $secretKey,
-            $algo,
             array_merge([
                 'private' => $this->getTestPrivateKey(),
                 'public' => $this->getTestPublicKey(),
