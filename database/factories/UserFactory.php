@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'avatar' => File::factory()->type('image/jpeg')->create()->uuid,
             'address' => $this->faker->streetAddress(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('userpassword'),
             'remember_token' => Str::random(10),
         ];
     }
@@ -48,7 +48,8 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'first_name' => 'Admin',
             'last_name' => 'Buckhill',
-            'email' => 'admin@buckhill.com',
+            'email' => 'admin@buckhill.co.uk',
+            'password' => bcrypt('admin'),
             'is_admin' => 1,
         ]);
     }

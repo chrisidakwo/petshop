@@ -20,7 +20,6 @@ Install composer dependencies using `composer install`
 
 ### 3. Confirm tests
 
-- Create a test database Sqlite file using `touch database/database.sqlite` 
 - Confirm the application is working as expected by running all tests using `php artisan test`
 
 ### 4. JWT and authentication

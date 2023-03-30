@@ -33,6 +33,7 @@ class JwtGuard implements Guard
         $this->request = $request;
         $this->jwt = $jwt;
         $this->jwtTokenService = $jwtTokenService;
+        $this->token = '';
     }
 
     /**
@@ -47,9 +48,8 @@ class JwtGuard implements Guard
         }
 
         $token = $this->getToken();
-        $result = $this->jwt->validateToken();
 
-        if ($token && is_array($result) && $this->validateSubject()) {
+        if ($token && ($result = $this->jwt->validateToken()) && $this->validateSubject()) {
             $tokenExists = $this->jwtTokenService->find($token);
 
             if ($tokenExists === null) {
@@ -99,12 +99,16 @@ class JwtGuard implements Guard
 
         $this->setToken($token)->setUser($user); // @phpstan-ignore-line
 
+        $this->jwtTokenService->create($token, $user);
+
         return $token;
     }
 
     public function logout(): void
     {
         $this->jwtTokenService->removeToken($this->token);
+
+        $this->token = '';
 
         $this->user = null;
 
@@ -128,6 +132,13 @@ class JwtGuard implements Guard
     public function getLastAttempted(): ?Authenticatable
     {
         return $this->lastAttempted;
+    }
+
+    public function setRequest(Request $request): static
+    {
+        $this->request = $request;
+
+        return $this;
     }
 
     protected function getToken(): ?string

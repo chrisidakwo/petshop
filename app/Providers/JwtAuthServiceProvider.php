@@ -10,7 +10,7 @@ use App\Auth\Providers\JwtProvider;
 use App\Http\Parsers\AuthHeader;
 use App\Http\Services\JwtTokenService;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Auth\RequestGuard;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +20,11 @@ class JwtAuthServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
+     *
+     * @throws BindingResolutionException
      */
     public function register(): void
     {
-        $this->app->bind(JwtTokenService::class, function () {
-            return new JwtTokenService();
-        });
-
         $this->app->bind(\App\Auth\Contracts\Providers\JWT::class, function (Application $app) {
             return new JwtProvider(
                 $app['config']->get('auth.jwt.secret'),
@@ -35,6 +33,10 @@ class JwtAuthServiceProvider extends ServiceProvider
                     'public' => $app['config']->get('auth.jwt.public_key'),
                 ],
             );
+        });
+
+        $this->app->bind(JwtTokenService::class, function (Application $app) {
+            return new JwtTokenService($app->make(\App\Auth\Contracts\Providers\JWT::class));
         });
 
         $this->app->bind(Jwt::class, function (Application $app) {
@@ -56,11 +58,14 @@ class JwtAuthServiceProvider extends ServiceProvider
         // empty
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     protected function registerAuthGuard(): void
     {
         Auth::resolved(function (AuthManager $auth): void {
             $auth->extend('jwt', function (Application $app, string $name, array $config) {
-                return tap($this->makeGuard($config), function (RequestGuard $guard): void {
+                return tap($this->makeGuard($config), function (JwtGuard $guard): void {
                     app()->refresh('request', $guard, 'setRequest');
                 });
             });
@@ -69,16 +74,16 @@ class JwtAuthServiceProvider extends ServiceProvider
 
     /**
      * @param array<string, mixed> $config
+     *
+     * @throws BindingResolutionException
      */
-    protected function makeGuard(array $config): RequestGuard
+    protected function makeGuard(array $config): JwtGuard
     {
-        return new RequestGuard(function (Request $request) use ($config) {
-            return new JwtGuard(
-                Auth::createUserProvider($config['provider']), // @phpstan-ignore-line
-                $request,
-                $this->app->make(Jwt::class),
-                $this->app->make(JwtTokenService::class),
-            );
-        }, $this->app->make('request'));
+        return new JwtGuard(
+            Auth::createUserProvider($config['provider']), // @phpstan-ignore-line
+            $this->app->make('request'),
+            $this->app->make(Jwt::class),
+            $this->app->make(JwtTokenService::class),
+        );
     }
 }

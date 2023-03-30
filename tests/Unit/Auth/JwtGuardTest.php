@@ -39,7 +39,7 @@ class JwtGuardTest extends TestCase
     public function testIsShouldReturnNullIfNoTokenIsProvided(): void
     {
         $this->jwt->expects('parseRequestForToken')->times(2)->andReturn(null);
-        $this->jwt->expects('validateToken')->times(2)->andReturn(false);
+        $this->jwt->expects('validateToken')->never();
         $this->jwt->expects('validateSubject')->never();
 
         $this->assertNull($this->guard->user());
@@ -131,6 +131,11 @@ class JwtGuardTest extends TestCase
             ->once()
             ->with('is.valid.token')
             ->andReturnSelf();
+
+        $this->jwtTokenService->shouldReceive('create')
+            ->once()
+            ->with('is.valid.token', $user)
+            ->andReturn(new JwtToken());
 
         $token = $this->guard->attempt($credentials);
 
