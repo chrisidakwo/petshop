@@ -18,7 +18,7 @@ abstract class TestCase extends BaseTestCase
             'email' => 'test@email.com'
         ], $overrides);
 
-        return User::factory()->create($attributes);
+        return User::factory()->create($attributes)->refresh();
     }
 
     /**
@@ -32,6 +32,6 @@ abstract class TestCase extends BaseTestCase
             'is_admin' => 1,
         ], $overrides);
 
-        return User::factory()->create($attributes);
+        return User::factory()->create($attributes)->refresh();
     }
 }
