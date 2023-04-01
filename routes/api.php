@@ -35,9 +35,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
 
 //            Route::post('reset-password-token', [UserController::class, 'resetPasswordToken'])->name('reset-password-token');
 
-//
-
-//
+    //
 //            Route::get('orders', [UserOrderController::class, 'index'])->name('orders.list');
 });
 

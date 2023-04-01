@@ -11,10 +11,8 @@ class PasswordResetServiceProvider extends BasePasswordResetServiceProvider
 {
     /**
      * Register the password broker instance.
-     *
-     * @return void
      */
-    protected function registerPasswordBroker()
+    protected function registerPasswordBroker(): void
     {
         $this->app->singleton('auth.password', function ($app) {
             return new PasswordBrokerManager($app);

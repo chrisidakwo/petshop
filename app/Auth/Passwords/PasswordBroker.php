@@ -11,9 +11,9 @@ use Illuminate\Contracts\Auth\PasswordBroker as PasswordBrokerContract;
 class PasswordBroker extends BasePasswordBroker implements PasswordBrokerContract
 {
     /**
-     * {@inheritdoc}
+     * @param array<string, string> $credentials
      */
-    public function sendResetLink(array $credentials, Closure $callback = null): string
+    public function sendResetLink(array $credentials, ?Closure $callback = null): string
     {
         // First we will check to see if we found a user at the given credentials and
         // if we did not we will redirect back to this current URI with a piece of
@@ -21,11 +21,11 @@ class PasswordBroker extends BasePasswordBroker implements PasswordBrokerContrac
         $user = $this->getUser($credentials);
 
         if (is_null($user)) {
-            return static::INVALID_USER;
+            return self::INVALID_USER;
         }
 
         if ($this->tokens->recentlyCreatedToken($user)) {
-            return static::RESET_THROTTLED;
+            return self::RESET_THROTTLED;
         }
 
         $token = $this->tokens->create($user);

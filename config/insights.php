@@ -94,6 +94,7 @@ return [
             'exclude' => [
                 'app/Auth/Jwt.php',
                 'app/Auth/JwtGuard.php',
+                'app/Auth/Passwords/PasswordBrokerManager.php',
             ]
         ],
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses::class => [

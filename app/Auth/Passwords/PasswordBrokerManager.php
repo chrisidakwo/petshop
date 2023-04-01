@@ -33,15 +33,41 @@ class PasswordBrokerManager implements PasswordBrokerFactory
     }
 
     /**
+     * Dynamically call the default driver instance.
+     *
+     * @param array<string, mixed> $parameters
+     */
+    public function __call(string $method, array $parameters): mixed
+    {
+        return $this->broker()->{$method}(...$parameters);
+    }
+
+    /**
      * Attempt to get the broker from the local cache.
      *
      * @param string|null $name
      */
     public function broker($name = null): \Illuminate\Contracts\Auth\PasswordBroker|PasswordBroker
     {
-        $name = $name ?: $this->getDefaultDriver();
+        $name = $name ? $name : $this->getDefaultDriver();
 
         return $this->brokers[$name] ?? ($this->brokers[$name] = $this->resolve($name));
+    }
+
+    /**
+     * Get the default password broker name.
+     */
+    public function getDefaultDriver(): string
+    {
+        return $this->app['config']['auth.defaults.passwords']; // @phpstan-ignore-line
+    }
+
+    /**
+     * Set the default password broker name.
+     */
+    public function setDefaultDriver(string $name): void
+    {
+        $this->app['config']['auth.defaults.passwords'] = $name;
     }
 
     /**
@@ -60,7 +86,7 @@ class PasswordBrokerManager implements PasswordBrokerFactory
         // aggregate service of sorts providing a convenient interface for resets.
         return new PasswordBroker(
             $this->createTokenRepository($config),
-            $this->app['auth']->createUserProvider($config['provider'] ?? null)
+            $this->app['auth']->createUserProvider($config['provider'] ?? null) // @phpstan-ignore-line
         );
     }
 
@@ -71,7 +97,7 @@ class PasswordBrokerManager implements PasswordBrokerFactory
      */
     protected function createTokenRepository(array $config): TokenRepositoryInterface|DatabaseTokenRepository
     {
-        $key = $this->app['config']['app.key'];
+        $key = $this->app['config']['app.key']; // @phpstan-ignore-line
 
         if (str_starts_with($key, 'base64:')) {
             $key = base64_decode(substr($key, 7));
@@ -80,8 +106,8 @@ class PasswordBrokerManager implements PasswordBrokerFactory
         $connection = $config['connection'] ?? null;
 
         return new DatabaseTokenRepository(
-            $this->app['db']->connection($connection),
-            $this->app['hash'],
+            $this->app['db']->connection($connection), // @phpstan-ignore-line
+            $this->app['hash'], // @phpstan-ignore-line
             $config['table'],
             $key,
             $config['expire'],
@@ -92,36 +118,10 @@ class PasswordBrokerManager implements PasswordBrokerFactory
     /**
      * Get the password broker configuration.
      *
-     * @return array<string, mixed>
+     * @return array<string, mixed>|null
      */
-    protected function getConfig(string $name): array
+    protected function getConfig(string $name): ?array
     {
-        return $this->app['config']["auth.passwords.{$name}"];
-    }
-
-    /**
-     * Get the default password broker name.
-     */
-    public function getDefaultDriver(): string
-    {
-        return $this->app['config']['auth.defaults.passwords'];
-    }
-
-    /**
-     * Set the default password broker name.
-     */
-    public function setDefaultDriver(string $name): void
-    {
-        $this->app['config']['auth.defaults.passwords'] = $name;
-    }
-
-    /**
-     * Dynamically call the default driver instance.
-     *
-     * @param array<string, mixed> $parameters
-     */
-    public function __call(string $method, array $parameters): mixed
-    {
-        return $this->broker()->{$method}(...$parameters);
+        return $this->app['config']["auth.passwords.{$name}"]; // @phpstan-ignore-line
     }
 }
