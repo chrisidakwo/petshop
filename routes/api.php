@@ -18,10 +18,11 @@ use App\Http\Controllers\User\UserController;
 
 // Users
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-
     Route::post('create', [UserController::class, 'store'])->name('store');
 
-//            Route::get('', [UserController::class, 'show'])->name('show');
+    Route::middleware('auth:api')->group(function () {
+        Route::get('', [UserController::class, 'show'])->name('show');
+    });
 //            Route::put('edit', [UserController::class, 'update'])->name('update');
 //            Route::post('forgot-password', [UserController::class, 'forgotPassword'])->name('forgot-password');
 //            Route::post('reset-password-token', [UserController::class, 'resetPasswordToken'])->name('reset-password-token');

@@ -11,6 +11,8 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\Admin\UserResource;
 use App\Http\Services\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
@@ -31,5 +33,12 @@ class UserController extends Controller
         return response()->json([
             'data' => UserResource::make($user)->toArray($request),
         ]);
+    }
+
+    public function show(Request $request): JsonResponse
+    {
+        $user = UserResource::make($request->user())->toArray($request);
+
+        return $this->response(Arr::except($user, ['token']));
     }
 }
