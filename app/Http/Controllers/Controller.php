@@ -28,6 +28,7 @@ class Controller extends BaseController
             'data' => $data,
             'error' => null,
             'errors' => [],
+            'extra' => [],
         ], $status, $headers, JSON_PRETTY_PRINT);
     }
 

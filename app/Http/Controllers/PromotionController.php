@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PromotionResourceCollection;
 use App\Http\Services\PromotionService;
+use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -14,6 +17,9 @@ class PromotionController extends Controller
     ) {
     }
 
+    /**
+     * @throws NotFoundFilterException
+     */
     public function __invoke(Request $request): JsonResponse
     {
         $page = $request->get('page', 1);

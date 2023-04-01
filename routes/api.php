@@ -13,6 +13,7 @@ declare(strict_types=1);
 |
 */
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PromotionController;
@@ -38,8 +39,14 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
 
     Route::post('reset-password-token', [ResetPasswordController::class, 'reset'])
         ->name('reset-password-token');
+});
 
-//            Route::get('orders', [UserOrderController::class, 'index'])->name('orders.list');
+// Brands
+Route::get('brands', [BrandController::class, 'index'])->name('brand.index');
+Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
+    Route::get('{brand}', [BrandController::class, 'show'])->name('show');
+    Route::put('{brand}', [BrandController::class, 'update'])->name('update');
+    Route::delete('{brand}', [BrandController::class, 'delete'])->name('delete');
 });
 
 // Files
