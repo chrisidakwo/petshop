@@ -22,8 +22,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 
     Route::middleware('auth:api')->group(function () {
         Route::get('', [UserController::class, 'show'])->name('show');
+        Route::put('edit', [UserController::class, 'update'])->name('update');
     });
-//            Route::put('edit', [UserController::class, 'update'])->name('update');
 //            Route::post('forgot-password', [UserController::class, 'forgotPassword'])->name('forgot-password');
 //            Route::post('reset-password-token', [UserController::class, 'resetPasswordToken'])->name('reset-password-token');
 //            Route::delete('', [UserController::class, 'delete'])->name('delete');

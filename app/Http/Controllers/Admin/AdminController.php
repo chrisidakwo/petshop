@@ -41,7 +41,7 @@ class AdminController extends Controller
 
         return response()->json([
             'data' => UserResource::make($user)->toArray($request),
-        ]);
+        ], 201);
     }
 
     /**

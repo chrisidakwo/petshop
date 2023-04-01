@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
 use App\Events\UserLoggedIn;
@@ -13,7 +15,7 @@ class UpdateUserLastLogin
     public function handle(UserLoggedIn $event): void
     {
         User::query()->whereUuid($event->user->getAuthIdentifier())->update([
-            'last_login_at' => now()->getTimestamp(),
+            'last_login_at' => now(),
         ]);
     }
 }

@@ -8,11 +8,13 @@ use App\Auth\Jwt;
 use App\Exceptions\JwtException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\Admin\UserResource;
 use App\Http\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -30,9 +32,7 @@ class UserController extends Controller
 
         $user->token = $this->jwt->generateTokenFromUser($user);
 
-        return response()->json([
-            'data' => UserResource::make($user)->toArray($request),
-        ]);
+        return $this->response(UserResource::make($user)->toArray($request), 201);
     }
 
     public function show(Request $request): JsonResponse
@@ -40,5 +40,19 @@ class UserController extends Controller
         $user = UserResource::make($request->user())->toArray($request);
 
         return $this->response(Arr::except($user, ['token']));
+    }
+
+    /**
+     * @throws JwtException
+     */
+    public function update(UpdateUserRequest $request)
+    {
+        $user = $this->userService->update($request->user(), $request->validated());
+
+        if (Auth::id() === $user->uuid) {
+            $user->token = $this->jwt->generateTokenFromUser($user);
+        }
+
+        return $this->response(UserResource::make($user)->toArray($request));
     }
 }

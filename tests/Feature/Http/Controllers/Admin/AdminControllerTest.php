@@ -35,7 +35,7 @@ class AdminControllerTest extends TestCase
 
         $response = $this->postJson(route('api.admin.store'), $requestData);
 
-        $response->assertStatus(200)
+        $response->assertStatus(201)
             ->assertJsonPath('data.first_name', 'John')
             ->assertJsonPath('data.email', 'john.doe@email.com')
             ->assertJsonPath('data.is_marketing', 0);

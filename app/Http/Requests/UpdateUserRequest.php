@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         /** @var Model $user */
-        $user = $this->route('user');
+        $user = $this->route('user') ?? $this->user();
 
         return [
             'first_name' => ['required', 'string',  'min:2'],
@@ -29,6 +29,6 @@ class UpdateUserRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return $this->user()->isAdmin() || $this->user()->id === $this->route('user')->id;
+        return $this->user() !== null;
     }
 }
