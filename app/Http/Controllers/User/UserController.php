@@ -7,6 +7,7 @@ namespace App\Http\Controllers\User;
 use App\Auth\Jwt;
 use App\Exceptions\JwtException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
@@ -59,5 +60,19 @@ class UserController extends Controller
         }
 
         return $this->response(UserResource::make($user)->toArray($request));
+    }
+
+    public function delete(DeleteUserRequest $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $request->user();
+
+        $result = $this->userService->delete($user);
+
+        if ($result === false) {
+            return $this->error('Could not delete user');
+        }
+
+        return $this->response();
     }
 }

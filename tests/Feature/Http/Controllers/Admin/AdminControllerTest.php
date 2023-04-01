@@ -191,20 +191,6 @@ class AdminControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testItShouldNotDeleteAuthUser(): void
-    {
-        $authUser = $this->createPredictableAdminUser();
-
-        $this->actingAs($authUser);
-
-        $response = $this->deleteJson(route('api.admin.delete', $authUser->uuid));
-
-        $response->assertStatus(403)
-            ->assertJson([
-                'error' => 'This action is unauthorized.',
-            ]);
-    }
-
     public function testItShouldNotDeleteDefaultAdmin(): void
     {
         $user = User::factory()->create([

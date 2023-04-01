@@ -21,14 +21,14 @@ class DeleteUserRequest extends FormRequest
 
     public function authorize(): bool
     {
-        /** @var User $user */
-        $user = $this->user();
+        /** @var User $authUser */
+        $authUser = $this->user();
 
         /** @var User $routeUser */
         $routeUser = $this->route('user');
 
-        return $user->isAdmin()
-            && $user->id !== $routeUser->id // Prevent deleting the currently authenticated user
+        // Prevent deleting the currently authenticated user
+        return ($authUser->isAdmin() || $authUser->id === $routeUser->id)
             && $routeUser->email !== 'admin@buckhill.co.uk'; // Prevent deleting the default admin
     }
 }
