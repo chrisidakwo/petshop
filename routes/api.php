@@ -14,10 +14,13 @@ declare(strict_types=1);
 */
 
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\UserController;
 
 // Users
 Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('create', [UserController::class, 'store'])->name('store');
 
     Route::middleware('auth:api')->group(function (): void {
@@ -28,8 +31,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
 //            Route::post('reset-password-token', [UserController::class, 'resetPasswordToken'])->name('reset-password-token');
 //            Route::delete('', [UserController::class, 'delete'])->name('delete');
 //
-//            Route::post('login', [UserAuthController::class, 'login'])->name('login');
-//            Route::get('logout', [UserAuthController::class, 'logout'])->name('logout');
+
 //
 //            Route::get('orders', [UserOrderController::class, 'index'])->name('orders.list');
 });

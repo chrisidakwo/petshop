@@ -130,19 +130,4 @@ class AuthControllerTest extends TestCase
             'error' => 'Unauthorized',
         ]);
     }
-
-    protected function getTestPrivateKey(): string
-    {
-        return base_path('tests/Keys/private.pem');
-    }
-
-    protected function getTestPublicKey(): string
-    {
-        return base_path('tests/Keys/public.pem');
-    }
-
-    protected function getTestSecretKey(): string
-    {
-        return 'tNLBusVcRts2Wq4YN94a30uG6g7VvOQwInrrsnvnTMTWYZx9MxdxiPG0ArDM7euY';
-    }
 }

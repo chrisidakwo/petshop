@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseAuthController;
 use App\Http\Requests\Auth\LoginRequest;
@@ -17,7 +15,7 @@ class AuthController extends BaseAuthController
         return [
             'email' => $request->validated('email'),
             'password' => $request->validated('password'),
-            'is_admin' => 1,
+            'is_admin' => 0,
         ];
     }
 }

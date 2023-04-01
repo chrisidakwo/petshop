@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Auth\Providers\JwtProvider;
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -33,5 +34,31 @@ abstract class TestCase extends BaseTestCase
         ], $overrides);
 
         return User::factory()->create($attributes)->refresh();
+    }
+
+    protected function getTestJwtProvider(): JwtProvider
+    {
+        return new JwtProvider(
+            $this->getTestSecretKey(),
+            [
+                'private' => $this->getTestPrivateKey(),
+                'public' => $this->getTestPublicKey(),
+            ]
+        );
+    }
+
+    protected function getTestPrivateKey(): string
+    {
+        return base_path('tests/Keys/private.pem');
+    }
+
+    protected function getTestPublicKey(): string
+    {
+        return base_path('tests/Keys/public.pem');
+    }
+
+    protected function getTestSecretKey(): string
+    {
+        return 'tNLBusVcRts2Wq4YN94a30uG6g7VvOQwInrrsnvnTMTWYZx9MxdxiPG0ArDM7euY';
     }
 }
