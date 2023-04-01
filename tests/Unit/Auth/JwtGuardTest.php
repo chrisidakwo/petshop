@@ -4,11 +4,13 @@ namespace Tests\Unit\Auth;
 
 use App\Auth\Jwt;
 use App\Auth\JwtGuard;
+use App\Events\UserLoggedIn;
 use App\Http\Services\JwtTokenService;
 use App\Models\JwtToken;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\Models\TestUser1;
 use Tests\TestCase;
@@ -132,10 +134,14 @@ class JwtGuardTest extends TestCase
             ->with('is.valid.token')
             ->andReturnSelf();
 
+        Event::fake();
+
         $token = $this->guard->attempt($credentials);
 
         $this->assertSame('is.valid.token', $token);
         $this->assertSame($user, $this->guard->getLastAttempted());
+
+        Event::assertDispatchedTimes(UserLoggedIn::class);
     }
 
     public function testItShouldGetAuthenticatedUserIfAValidTokenIsProvided(): void

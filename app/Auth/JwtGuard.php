@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Auth;
 
 use App\Auth\Contracts\JwtSubject;
+use App\Events\UserLoggedIn;
 use App\Exceptions\InvalidBearerToken;
 use App\Exceptions\JwtException;
 use App\Http\Services\JwtTokenService;
@@ -100,6 +101,8 @@ class JwtGuard implements Guard
         $token = $this->jwt->generateTokenFromUser($user); // @phpstan-ignore-line
 
         $this->setToken($token)->setUser($user); // @phpstan-ignore-line
+
+        event(new UserLoggedIn($user));
 
         return $token;
     }
