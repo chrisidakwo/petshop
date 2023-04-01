@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +23,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth:api', 'admin']], function () {
     Route::get('user-listing', [UserController::class, 'index'])->name('users.listing');
+    Route::post('create', [AdminController::class, 'store'])->name('store');
+    Route::put('user-edit/{user}', [AdminController::class, 'update'])->name('update');
+    Route::delete('user-delete/{user}', [AdminController::class, 'delete'])->name('delete');
 });

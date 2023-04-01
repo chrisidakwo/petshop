@@ -17,6 +17,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -39,6 +40,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string|null $token
  *
  * @property-read Collection<int, JwtToken> $jwtTokens
  * @property-read int|null $jwt_tokens_count
@@ -95,6 +97,15 @@ class User extends Authenticatable implements MustVerifyEmail, JwtSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function (self $record): void {
+            $record->uuid = Str::orderedUuid()->toString();
+        });
+    }
 
     public function getAuthIdentifierName(): string
     {

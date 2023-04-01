@@ -12,3 +12,13 @@ declare(strict_types=1);
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+use App\Http\Controllers\FileController;
+
+Route::group(['middleware' => 'auth:api'],  function () {
+
+    // Files
+    Route::prefix('file')->as('file.')->group(function () {
+        Route::post('upload', [FileController::class, 'upload'])->name('upload');
+    });
+});

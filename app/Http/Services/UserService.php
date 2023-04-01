@@ -32,4 +32,32 @@ class UserService
             page: $page,
         );
     }
+
+    /**
+     * @param array<string, mixed> $attributes
+     */
+    public function create(array $attributes): User
+    {
+        return User::query()->create([
+            'first_name' => $attributes['first_name'],
+            'last_name' => $attributes['last_name'],
+            'email' => $attributes['email'],
+            'avatar' => $attributes['avatar'] ?? null,
+            'address' => $attributes['address'],
+            'phone_number' => $attributes['phone_number'],
+            'is_marketing' => $attributes['is_marketing'] ?? 0,
+            'password' => bcrypt($attributes['password']),
+            'is_admin' => $attributes['is_admin'],
+        ])->refresh();
+    }
+
+    /**
+     * @param array<string, mixed> $attributes
+     */
+    public function update(User $user, array $attributes): User
+    {
+        $user->fill($attributes)->save();
+
+        return $user->refresh();
+    }
 }

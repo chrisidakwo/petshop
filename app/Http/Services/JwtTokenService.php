@@ -54,4 +54,11 @@ class JwtTokenService
             'expires_at' => $expiresAt->getTimestamp(),
         ]);
     }
+
+    public function updateLastUsed(string $token): void
+    {
+        $this->find($token)?->update([
+            'last_used_at' => now(),
+        ]);
+    }
 }

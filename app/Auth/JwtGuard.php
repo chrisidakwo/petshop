@@ -123,6 +123,8 @@ class JwtGuard implements Guard
             return false;
         }
 
+        $this->jwtTokenService->updateLastUsed($token);
+
         return $user;
     }
 

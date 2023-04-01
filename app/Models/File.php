@@ -39,4 +39,9 @@ use Illuminate\Support\Carbon;
 class File extends Model
 {
     protected $fillable = ['uuid', 'name', 'path', 'size', 'type'];
+
+    public function getSizeAttribute(mixed $value): float
+    {
+        return round($value / 1000, 2);
+    }
 }
