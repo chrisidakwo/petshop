@@ -7,14 +7,16 @@ namespace App\Http\Services;
 use App\Models\User;
 use EloquentBuilder;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
 {
     /**
      * @param array<string, mixed> $fields
      *
-     * @return Paginator<User>
+     * @return LengthAwarePaginator<Model>
+     *
      * @throws NotFoundFilterException
      */
     public function list(
@@ -23,11 +25,11 @@ class UserService
         int $limit,
         string|null $sortColumn,
         bool $sortDesc = true,
-    ): Paginator {
+    ): LengthAwarePaginator {
         $sortDirection = $sortDesc ? 'desc' : 'asc';
 
         $userQuery = User::query()->where('users.is_admin', 0)
-            ->orderBy($sortColumn ?: 'created_at', $sortDirection);
+            ->orderBy($sortColumn ? $sortColumn : 'created_at', $sortDirection);
 
         return EloquentBuilder::to($userQuery, $fields)->paginate(
             perPage: $limit,

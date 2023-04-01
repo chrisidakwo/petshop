@@ -12,8 +12,8 @@ class JwtGeneratedForUser
 {
     use Dispatchable, SerializesModels;
 
-    public string $token;
-    public JwtSubject $subject;
+    protected string $token;
+    protected JwtSubject $subject;
 
     /**
      * Create a new event instance.
@@ -22,5 +22,15 @@ class JwtGeneratedForUser
     {
         $this->token = $token;
         $this->subject = $subject;
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    public function getSubject(): JwtSubject
+    {
+        return $this->subject;
     }
 }

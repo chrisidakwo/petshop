@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Models\File;
@@ -20,7 +22,7 @@ class FileResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'path' => $this->path,
-            'size' => $this->getOriginal('size') . " KB",
+            'size' => $this->getOriginal('size') . ' KB',
             'type' => $this->type,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

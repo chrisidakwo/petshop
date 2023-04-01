@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\User;
+
 class StoreAdminUserRequest extends UserRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->isAdmin();
+        /** @var User $user */
+        $user = $this->user();
+
+        return $user->isAdmin();
     }
 
     /**

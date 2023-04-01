@@ -98,15 +98,6 @@ class User extends Authenticatable implements MustVerifyEmail, JwtSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function (self $record): void {
-            $record->uuid = Str::orderedUuid()->toString();
-        });
-    }
-
     public function getRouteKeyName(): string
     {
         return 'uuid';
@@ -141,5 +132,14 @@ class User extends Authenticatable implements MustVerifyEmail, JwtSubject
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function (self $record): void {
+            $record->uuid = Str::orderedUuid()->toString();
+        });
     }
 }

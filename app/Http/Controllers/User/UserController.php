@@ -9,8 +9,9 @@ use App\Exceptions\JwtException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\Admin\UserResource;
+use App\Http\Resources\UserResource;
 use App\Http\Services\UserService;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -21,7 +22,8 @@ class UserController extends Controller
     public function __construct(
         private UserService $userService,
         private Jwt $jwt,
-    ){ }
+    ) {
+    }
 
     /**
      * @throws JwtException
@@ -45,9 +47,12 @@ class UserController extends Controller
     /**
      * @throws JwtException
      */
-    public function update(UpdateUserRequest $request)
+    public function update(UpdateUserRequest $request): JsonResponse
     {
-        $user = $this->userService->update($request->user(), $request->validated());
+        /** @var User $user */
+        $user = $request->user();
+
+        $user = $this->userService->update($user, $request->validated());
 
         if (Auth::id() === $user->uuid) {
             $user->token = $this->jwt->generateTokenFromUser($user);

@@ -17,10 +17,10 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\User\UserController;
 
 // Users
-Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
     Route::post('create', [UserController::class, 'store'])->name('store');
 
-    Route::middleware('auth:api')->group(function () {
+    Route::middleware('auth:api')->group(function (): void {
         Route::get('', [UserController::class, 'show'])->name('show');
         Route::put('edit', [UserController::class, 'update'])->name('update');
     });
@@ -35,7 +35,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 });
 
 // Files
-Route::group(['prefix' => 'file', 'as' => 'file.'], function () {
+Route::group(['prefix' => 'file', 'as' => 'file.'], function (): void {
     Route::post('upload', [FileController::class, 'upload'])->name('upload')
         ->middleware(['auth:api']);
 });

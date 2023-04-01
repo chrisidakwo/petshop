@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['auth:api', 'admin']], function () {
+Route::group(['middleware' => ['auth:api', 'admin']], function (): void {
     Route::get('user-listing', [UserController::class, 'index'])->name('users.listing');
     Route::post('create', [AdminController::class, 'store'])->name('store');
     Route::put('user-edit/{user}', [AdminController::class, 'update'])->name('update');

@@ -14,7 +14,10 @@ class UpdateUserLastLogin
      */
     public function handle(UserLoggedIn $event): void
     {
-        User::query()->whereUuid($event->user->getAuthIdentifier())->update([
+        /** @var User $user */
+        $user = $event->getUser();
+
+        User::query()->whereUuid($user->getAuthIdentifier())->update([
             'last_login_at' => now(),
         ]);
     }

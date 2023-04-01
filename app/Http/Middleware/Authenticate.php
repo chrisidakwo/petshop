@@ -36,7 +36,7 @@ class Authenticate extends Middleware
         }
 
         foreach ($guards as $guard) {
-            if ($guard === 'api' && null === $this->auth->guard($guard)->user()) {
+            if ($guard === 'api' && $this->auth->guard($guard)->user() === null) {
                 $token = $this->jwt->parseRequestForToken();
 
                 $this->authenticateUser($token);

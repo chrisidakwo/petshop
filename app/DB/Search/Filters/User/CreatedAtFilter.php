@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DB\Search\Filters\User;
 
 use Fouladgar\EloquentBuilder\Support\Foundation\Contracts\Filter;

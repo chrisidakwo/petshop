@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\User;
@@ -13,12 +15,12 @@ class CheckIsAdmin
     /**
      * @throws AuthenticationException|AccessDeniedHttpException
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         /** @var User|null $user */
         $user = $request->user();
 
-        if (null === $user) {
+        if ($user === null) {
             throw new AuthenticationException('Failed to authenticate user');
         }
 

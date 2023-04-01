@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\StoreAdminUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\Admin\UserResource;
+use App\Http\Resources\UserResource;
 use App\Http\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +21,8 @@ class AdminController extends Controller
     public function __construct(
         private UserService $userService,
         private Jwt $jwt,
-    ){ }
+    ) {
+    }
 
     /**
      * @throws JwtException

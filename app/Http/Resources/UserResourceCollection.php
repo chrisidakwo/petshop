@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Admin;
+declare(strict_types=1);
 
-use App\Http\Resources\BaseResourceCollection;
+namespace App\Http\Resources;
+
 use Illuminate\Http\Request;
 
 class UserResourceCollection extends BaseResourceCollection

@@ -29,7 +29,7 @@ class FileService
 
         return File::query()->create([
             'name' => Str::random(32),
-            'path' => "public/$filePath",
+            'path' => "public/{$filePath}",
             'size' => $fileSize,
             'type' => $mimeType,
         ])->refresh();

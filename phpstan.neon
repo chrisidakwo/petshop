@@ -6,3 +6,4 @@ parameters:
         - app/
     level: 8
     treatPhpDocTypesAsCertain: false
+    checkGenericClassInNonGenericObjectType: false

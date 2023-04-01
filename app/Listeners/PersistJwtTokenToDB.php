@@ -11,7 +11,8 @@ use App\Models\User;
 class PersistJwtTokenToDB
 {
     public function __construct(private JwtTokenService $jwtTokenService)
-    { }
+    {
+    }
 
     /**
      * Handle the event.
@@ -19,12 +20,12 @@ class PersistJwtTokenToDB
     public function handle(JwtGeneratedForUser $event): void
     {
         /** @var User|null $user */
-        $user = User::query()->whereUuid($event->subject->getSubjectIdentifier())->first();
+        $user = User::query()->whereUuid($event->getSubject()->getSubjectIdentifier())->first();
 
         if ($user !== null) {
             $this->jwtTokenService->expireUserToken($user->id);
 
-            $this->jwtTokenService->create($event->token, $event->subject);
+            $this->jwtTokenService->create($event->getToken(), $event->getSubject());
         }
     }
 }

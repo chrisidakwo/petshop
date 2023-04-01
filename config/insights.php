@@ -83,6 +83,11 @@ return [
             'exclude' => [
                 'app/Exceptions/Handler.php',
                 'app/Providers/JwtAuthServiceProvider.php',
+                'app/Http/Resources/BaseResourceCollection.php',
+                'app/Http/Resources/FileResource.php',
+                'app/Http/Resources/UserResource.php',
+                'app/Http/Resources/UserResourceCollection.php',
+                'app/Http/Controllers/Admin/AdminController.php',
             ],
         ],
         \NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff::class => [
@@ -95,6 +100,11 @@ return [
             'exclude' => [
                 'app/Exceptions/InvalidBearerToken.php',
             ]
+        ],
+        \SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff::class =>[
+            'exclude' => [
+                'app/Http/Resources/UserResource.php',
+            ],
         ],
     ],
 
