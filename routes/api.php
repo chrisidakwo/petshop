@@ -14,7 +14,8 @@ declare(strict_types=1);
 */
 
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\ResetPasswordController;
@@ -49,5 +50,7 @@ Route::group(['prefix' => 'file', 'as' => 'file.'], function (): void {
 
 // Main
 Route::group(['prefix' => 'main', 'as' => 'main.'], function () {
-    Route::get('promotions', [MainController::class,  'promotions'])->name('promotions');
+    Route::get('promotions', [PromotionController::class])->name('promotions');
+    Route::get('blog', [PostController::class, 'listPosts'])->name('posts');
+    Route::get('blog/{post}', [PostController::class, 'viewPost'])->name('posts');
 });

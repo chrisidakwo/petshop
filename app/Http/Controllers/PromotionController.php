@@ -7,14 +7,14 @@ use App\Http\Services\PromotionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class MainController extends Controller
+class PromotionController extends Controller
 {
     public function __construct(
-        private PromotionService $promotionService
+        private PromotionService $promotionService,
     ) {
     }
 
-    public function promotions(Request $request): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 10);
