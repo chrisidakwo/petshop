@@ -107,6 +107,11 @@ class User extends Authenticatable implements MustVerifyEmail, JwtSubject
         });
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function getAuthIdentifierName(): string
     {
         return 'uuid';
@@ -115,6 +120,11 @@ class User extends Authenticatable implements MustVerifyEmail, JwtSubject
     public function getSubjectIdentifier(): string
     {
         return $this->getAttribute('uuid');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin === 1;
     }
 
     /**

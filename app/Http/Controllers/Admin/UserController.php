@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -31,7 +33,7 @@ class UserController extends Controller
         $searchFields = $request->except(['page', 'limit', 'sortBy', 'desc']);
 
         return UserResourceCollection::make(
-            $this->userService->list($searchFields, $page, $limit, $sortBy, $desc)
+            $this->userService->list($searchFields, (int) $page, (int) $limit, $sortBy, $desc)
         )->toResponse($request);
     }
 }

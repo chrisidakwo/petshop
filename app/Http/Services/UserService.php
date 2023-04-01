@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Services;
 
 use App\Models\User;
@@ -56,8 +58,22 @@ class UserService
      */
     public function update(User $user, array $attributes): User
     {
-        $user->fill($attributes)->save();
+        $user->fill([
+            'first_name' => $attributes['first_name'],
+            'last_name' => $attributes['last_name'],
+            'email' => $attributes['email'],
+            'password' => bcrypt($attributes['password']),
+            'avatar' => $attributes['avatar'] ?? $user->avatar,
+            'address' => $attributes['address'],
+            'phone_number' => $attributes['phone_number'],
+            'is_marketing' => $attributes['is_marketing'] ?? $user->is_marketing,
+        ])->save();
 
         return $user->refresh();
+    }
+
+    public function delete(User $user): ?bool
+    {
+        return $user->delete();
     }
 }

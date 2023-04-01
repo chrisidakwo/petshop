@@ -18,7 +18,7 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
 
     public function generateUuid(): void
     {
-        if (in_array('uuid', $this->fillable)) {
+        if (in_array('uuid', $this->fillable) && ! $this->getAttribute('uuid')) {
             $this->setAttribute('uuid', Str::orderedUuid()->toString());
         }
     }
