@@ -48,4 +48,23 @@ class AuthControllerTest extends TestCase
                 'error' => 'Failed to authenticate user',
             ]);
     }
+
+    public function testItDoesNotLoginAnAdminUser(): void
+    {
+        $this->createPredictableAdminUser([
+            'email' => 'admin@email.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->postJson(route('api.user.login'), [
+            'email' => 'admin@email.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'success' => 0,
+                'error' => 'Failed to authenticate user',
+            ]);
+    }
 }

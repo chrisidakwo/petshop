@@ -106,6 +106,25 @@ class AuthControllerTest extends TestCase
             ]);
     }
 
+    public function testItDoesNotLoginARegularUser(): void
+    {
+        $this->createPredictableRegularUser([
+            'email' => 'user@email.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->postJson(route('api.admin.login'), [
+            'email' => 'user@email.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'success' => 0,
+                'error' => 'Failed to authenticate user',
+            ]);
+    }
+
     public function testItSuccessfullyLogsOutWhenTokenIsPresentInRequestHeader(): void
     {
         $user = $this->createPredictableAdminUser();
