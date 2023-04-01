@@ -101,8 +101,6 @@ class JwtGuard implements Guard
 
         $this->setToken($token)->setUser($user); // @phpstan-ignore-line
 
-        $this->jwtTokenService->create($token, $user);
-
         return $token;
     }
 

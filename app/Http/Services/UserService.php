@@ -49,7 +49,7 @@ class UserService
             'phone_number' => $attributes['phone_number'],
             'is_marketing' => $attributes['is_marketing'] ?? 0,
             'password' => bcrypt($attributes['password']),
-            'is_admin' => $attributes['is_admin'],
+            'is_admin' => $attributes['is_admin'] ?? 0,
         ])->refresh();
     }
 

@@ -25,6 +25,7 @@ class JwtTokenService
     {
         return JwtToken::query()->where('unique_id', $token)
             ->where('expires_at', '>', now())
+            ->latest('created_at')
             ->first();
     }
 
@@ -59,6 +60,13 @@ class JwtTokenService
     {
         $this->find($token)?->update([
             'last_used_at' => now(),
+        ]);
+    }
+
+    public function expireUserToken(int $userId): bool|int
+    {
+        return JwtToken::query()->whereUserId($userId)->update([
+            'expires_at' => now()->subMinute(),
         ]);
     }
 }

@@ -5,10 +5,12 @@ namespace Tests\Unit\Auth;
 use App\Auth\Contracts\JwtSubject;
 use App\Auth\Jwt;
 use App\Auth\Providers\JwtProvider;
+use App\Events\Auth\JwtGeneratedForUser;
 use App\Exceptions\InvalidBearerToken;
 use App\Exceptions\JwtException;
 use App\Http\Parsers\AuthHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\Models\TestUser1;
 use Tests\Models\TestUser2;
@@ -45,16 +47,21 @@ class JwtTest extends TestCase
 
     public function testItGeneratesATokenWhenPassedAUser(): void
     {
+        Event::fake();
+
         $user = new TestUser1;
         $token = $this->jwt->generateTokenFromUser($user);
 
+        Event::assertDispatchedTimes(JwtGeneratedForUser::class);
         $this->assertNotEmpty($token);
     }
 
     public function testItPassesIfSubjectHashMatches(): void
     {
+        Event::fake();
         $token = $this->jwt->generateTokenFromUser(new TestUser1);
 
+        Event::assertDispatchedTimes(JwtGeneratedForUser::class);
         $this->assertTrue(
             $this->jwt
                 ->setToken($token)
@@ -138,6 +145,8 @@ class JwtTest extends TestCase
 
     protected function getToken(JwtSubject|null $subject = null): string
     {
+        Event::fake();
+
         return $this->jwt->generateTokenFromUser($subject ?: new TestUser1());
     }
 }

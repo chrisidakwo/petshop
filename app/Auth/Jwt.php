@@ -6,6 +6,7 @@ namespace App\Auth;
 
 use App\Auth\Contracts\JwtSubject;
 use App\Auth\Validators\TokenValidator;
+use App\Events\Auth\JwtGeneratedForUser;
 use App\Exceptions\InvalidBearerToken;
 use App\Exceptions\JwtException;
 use App\Http\Parsers\HttpParser;
@@ -57,7 +58,11 @@ class Jwt
     {
         $payload = $this->buildClaimsPayload($subject);
 
-        return $this->jwtProvider->encode($payload);
+        $token = $this->jwtProvider->encode($payload);
+
+        event(new JwtGeneratedForUser($token, $subject));
+
+        return $token;
     }
 
     /**

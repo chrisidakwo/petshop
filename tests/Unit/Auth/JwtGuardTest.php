@@ -132,11 +132,6 @@ class JwtGuardTest extends TestCase
             ->with('is.valid.token')
             ->andReturnSelf();
 
-        $this->jwtTokenService->shouldReceive('create')
-            ->once()
-            ->with('is.valid.token', $user)
-            ->andReturn(new JwtToken());
-
         $token = $this->guard->attempt($credentials);
 
         $this->assertSame('is.valid.token', $token);
