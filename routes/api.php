@@ -16,6 +16,7 @@ declare(strict_types=1);
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ForgotPasswordController;
+use App\Http\Controllers\User\ResetPasswordController;
 use App\Http\Controllers\User\UserController;
 
 // Users
@@ -33,9 +34,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
     Route::post('forgot-password', [ForgotPasswordController::class, 'index'])
         ->name('forgot-password');
 
-//            Route::post('reset-password-token', [UserController::class, 'resetPasswordToken'])->name('reset-password-token');
+    Route::post('reset-password-token', [ResetPasswordController::class, 'reset'])
+        ->name('reset-password-token');
 
-    //
 //            Route::get('orders', [UserOrderController::class, 'index'])->name('orders.list');
 });
 
