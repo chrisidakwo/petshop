@@ -14,6 +14,7 @@ declare(strict_types=1);
 */
 
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ForgotPasswordController;
 use App\Http\Controllers\User\ResetPasswordController;
@@ -44,4 +45,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
 Route::group(['prefix' => 'file', 'as' => 'file.'], function (): void {
     Route::post('upload', [FileController::class, 'upload'])->name('upload')
         ->middleware(['auth:api']);
+});
+
+// Main
+Route::group(['prefix' => 'main', 'as' => 'main.'], function () {
+    Route::get('promotions', [MainController::class,  'promotions'])->name('promotions');
 });
