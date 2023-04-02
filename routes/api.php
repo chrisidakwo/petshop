@@ -16,6 +16,7 @@ declare(strict_types=1);
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotionController;
@@ -48,6 +49,10 @@ Route::get('products', [ProductController::class, 'index'])->name('products');
 Route::post('product/create', [ProductController::class, 'store'])->name('product.store');
 Route::resource('product', ProductController::class)->only(['show',  'update', 'destroy']);
 
+// Order Statuses
+Route::get('order-statuses', [OrderStatusController::class, 'index'])->name('order-statuses');
+
+// Categories
 Route::get('categories', [CategoryController::class, 'index'])->name('categories');
 
 // Brands
