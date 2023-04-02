@@ -8,6 +8,7 @@ use Database\Factories\OrderFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 
 /**
@@ -57,6 +58,37 @@ class Order extends Model
         'address' => 'array',
         'shipped_at' => 'datetime',
     ];
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getProductsAttribute(mixed $value): array
+    {
+        $value = json_decode($value);
+
+        $productsUuids = Arr::pluck($value, 'product_id');
+
+        $products = Product::query()->whereIn('uuid', $productsUuids)->get();
+
+        return array_reduce($value, function ($returnProducts, $currentValue) use ($products) {
+            $uuid = $currentValue->product_id;
+            $quantity = $currentValue->quantity;
+
+            /** @var Product $product */
+            $product = $products->where('uuid', $uuid)->first();
+
+            $productArr = [
+                'uuid' => $product->uuid,
+                'price' => round($product->price, 2),
+                'product' => $product->title,
+                'quantity' => $quantity
+            ];
+
+            $returnProducts[] = $productArr;
+
+            return $returnProducts;
+        }, []);
+    }
 
     /**
      * @return BelongsTo<OrderStatus, Order>
