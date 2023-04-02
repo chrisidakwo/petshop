@@ -14,6 +14,7 @@ declare(strict_types=1);
 */
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
@@ -46,6 +47,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
 Route::get('products', [ProductController::class, 'index'])->name('products');
 Route::post('product/create', [ProductController::class, 'store'])->name('product.store');
 Route::resource('product', ProductController::class)->only(['show',  'update', 'destroy']);
+
+Route::get('categories', [CategoryController::class, 'index'])->name('categories');
 
 // Brands
 Route::get('brands', [BrandController::class, 'index'])->name('brands');
