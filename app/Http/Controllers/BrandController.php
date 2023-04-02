@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateBrandRequest;
-use App\Http\Resources\BrandResource;
-use App\Http\Resources\BrandResourceCollection;
+use App\Http\Resources\Brand\BrandResource;
+use App\Http\Resources\Brand\BrandResourceCollection;
 use App\Http\Services\BrandService;
 use App\Models\Brand;
 use Illuminate\Http\JsonResponse;

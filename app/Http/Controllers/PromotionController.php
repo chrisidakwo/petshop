@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PromotionResourceCollection;
+use App\Http\Resources\Promotion\PromotionResourceCollection;
 use App\Http\Services\PromotionService;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 use Illuminate\Http\JsonResponse;

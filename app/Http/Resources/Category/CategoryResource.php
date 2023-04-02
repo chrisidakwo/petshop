@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
+namespace App\Http\Resources\Category;
 
-namespace App\Http\Resources;
-
-use App\Models\File;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin File
+ * @mixin Category
  */
-class FileResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * @return array<string, mixed>
@@ -20,10 +18,8 @@ class FileResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'name' => $this->name,
-            'path' => $this->path,
-            'size' => $this->getOriginal('size') . ' KB',
-            'type' => $this->type,
+            'title' => $this->title,
+            'slug' => $this->slug,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -13,14 +13,21 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('category_id')
-                ->references('id')
+            $table->foreignUuid('category_uuid')
+                ->references('uuid')
                 ->on('categories');
             $table->uuid();
             $table->string('title');
             $table->double('price', 12, 2);
             $table->text('description');
             $table->json('metadata');
+
+            $brandUuid = \Illuminate\Support\Facades\DB::connection()
+                ->getQueryGrammar()
+                ->wrap('metadata->brand');
+
+            $table->uuid('brand_uuid')->storedAs($brandUuid);
+
             $table->softDeletes();
             $table->timestamps();
         });

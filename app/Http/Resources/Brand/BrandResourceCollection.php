@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Brand;
 
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
 
-class UserResourceCollection extends BaseResourceCollection
+/**
+ * @see \App\Models\Brand
+ */
+class BrandResourceCollection extends BaseResourceCollection
 {
     /**
      * @return array<string, mixed>

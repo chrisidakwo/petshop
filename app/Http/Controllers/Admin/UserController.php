@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResourceCollection;
+use App\Http\Resources\User\UserResourceCollection;
 use App\Http\Services\UserService;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 use Illuminate\Http\JsonResponse;

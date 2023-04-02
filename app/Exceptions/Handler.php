@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
         return response()->json([
             'success' => 0,
             'data' => [],
-            'error' => $e->getMessage(),
+            'error' => 'Failed Validation',
             'errors' => $e->errors(),
             'trace' => [],
         ], $e->status);

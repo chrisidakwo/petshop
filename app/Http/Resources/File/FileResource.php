@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Resources;
+declare(strict_types=1);
 
-use App\Models\Promotion;
+namespace App\Http\Resources\File;
+
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Promotion
+ * @mixin File
  */
-class PromotionResource extends JsonResource
+class FileResource extends JsonResource
 {
     /**
      * @return array<string, mixed>
@@ -18,9 +20,10 @@ class PromotionResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'title' => $this->title,
-            'content' => $this->content,
-            'metadata' => $this->metadata,
+            'name' => $this->name,
+            'path' => $this->path,
+            'size' => $this->getOriginal('size') . ' KB',
+            'type' => $this->type,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

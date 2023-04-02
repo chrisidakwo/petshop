@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserResource;
 use App\Http\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;

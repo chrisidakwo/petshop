@@ -18,7 +18,6 @@ use Illuminate\Support\Carbon;
  * @property string $slug
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static BrandFactory factory($count = null, $state = [])
  * @method static Builder|Brand newModelQuery()
  * @method static Builder|Brand newQuery()
@@ -29,7 +28,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Brand whereTitle($value)
  * @method static Builder|Brand whereUpdatedAt($value)
  * @method static Builder|Brand whereUuid($value)
- *
  * @mixin Eloquent
  */
 class Brand extends Model

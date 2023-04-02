@@ -84,9 +84,9 @@ return [
                 'app/Exceptions/Handler.php',
                 'app/Providers/JwtAuthServiceProvider.php',
                 'app/Http/Resources/BaseResourceCollection.php',
-                'app/Http/Resources/FileResource.php',
-                'app/Http/Resources/UserResource.php',
-                'app/Http/Resources/UserResourceCollection.php',
+                'app/Http/Resources/File/FileResource.php',
+                'app/Http/Resources/User/UserResource.php',
+                'app/Http/Resources/User/UserResourceCollection.php',
                 'app/Http/Controllers/Admin/AdminController.php',
             ],
         ],
@@ -104,7 +104,7 @@ return [
         ],
         \SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff::class =>[
             'exclude' => [
-                'app/Http/Resources/UserResource.php',
+                'app/Http/Resources/User/UserResource.php',
             ],
         ],
     ],

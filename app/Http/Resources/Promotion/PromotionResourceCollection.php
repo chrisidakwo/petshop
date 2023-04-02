@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Promotion;
 
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
 
 /**

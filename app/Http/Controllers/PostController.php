@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PostResource;
-use App\Http\Resources\PostResourceCollection;
+use App\Http\Resources\Blog\PostResource;
+use App\Http\Resources\Blog\PostResourceCollection;
 use App\Http\Services\BlogService;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;

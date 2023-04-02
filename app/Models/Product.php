@@ -15,24 +15,25 @@ use Illuminate\Support\Carbon;
  * App\Models\Product
  *
  * @property int $id
- * @property int $category_id
+ * @property string $category_uuid
  * @property string $uuid
  * @property string $title
  * @property float $price
  * @property string $description
  * @property array $metadata
+ * @property string|null $brand_uuid
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
+ * @property-read Brand|null $brand
  * @property-read Category $category
- *
  * @method static ProductFactory factory($count = null, $state = [])
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static Builder|Product onlyTrashed()
  * @method static Builder|Product query()
- * @method static Builder|Product whereCategoryId($value)
+ * @method static Builder|Product whereBrandUuid($value)
+ * @method static Builder|Product whereCategoryUuid($value)
  * @method static Builder|Product whereCreatedAt($value)
  * @method static Builder|Product whereDeletedAt($value)
  * @method static Builder|Product whereDescription($value)
@@ -44,24 +45,28 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product whereUuid($value)
  * @method static Builder|Product withTrashed()
  * @method static Builder|Product withoutTrashed()
- *
  * @mixin Eloquent
  */
 class Product extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['category_id', 'title', 'uuid', 'price', 'description', 'metadata'];
+    protected $fillable = ['category_uuid', 'title', 'uuid', 'price', 'description', 'metadata'];
 
     protected $casts = [
         'metadata' => 'array',
     ];
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_uuid', 'uuid');
+    }
 
     /**
      * @return BelongsTo<Category, Product>
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_uuid', 'uuid');
     }
 }

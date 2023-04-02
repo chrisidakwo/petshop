@@ -7,15 +7,12 @@ namespace App\Http\Services;
 use App\Models\User;
 use EloquentBuilder;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
 {
     /**
      * @param array<string, mixed> $fields
-     *
-     * @return LengthAwarePaginator<Model>
      *
      * @throws NotFoundFilterException
      */

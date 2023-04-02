@@ -41,7 +41,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $token
- *
  * @property-read Collection<int, JwtToken> $jwtTokens
  * @property-read int|null $jwt_tokens_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
@@ -50,7 +49,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read int|null $orders_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- *
  * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -71,7 +69,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUuid($value)
- *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail, JwtSubject

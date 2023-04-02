@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FileUploadRequest;
-use App\Http\Resources\FileResource;
+use App\Http\Resources\File\FileResource;
 use App\Http\Services\FileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;

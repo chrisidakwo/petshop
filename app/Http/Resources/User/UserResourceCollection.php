@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources;
+declare(strict_types=1);
 
+namespace App\Http\Resources\User;
+
+use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
 
-/**
- * @see \App\Models\Brand
- */
-class BrandResourceCollection extends BaseResourceCollection
+class UserResourceCollection extends BaseResourceCollection
 {
     /**
      * @return array<string, mixed>

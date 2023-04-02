@@ -19,10 +19,8 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property-read Collection<int, Order> $orders
  * @property-read int|null $orders_count
- *
  * @method static OrderStatusFactory factory($count = null, $state = [])
  * @method static Builder|OrderStatus newModelQuery()
  * @method static Builder|OrderStatus newQuery()
@@ -32,7 +30,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|OrderStatus whereTitle($value)
  * @method static Builder|OrderStatus whereUpdatedAt($value)
  * @method static Builder|OrderStatus whereUuid($value)
- *
  * @mixin Eloquent
  */
 class OrderStatus extends Model

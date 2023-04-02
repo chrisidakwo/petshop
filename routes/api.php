@@ -16,6 +16,7 @@ declare(strict_types=1);
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ForgotPasswordController;
@@ -41,8 +42,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {
         ->name('reset-password-token');
 });
 
+// Products
+Route::get('products', [ProductController::class, 'index'])->name('products');
+Route::post('product/create', [ProductController::class, 'store'])->name('product.store');
+Route::resource('product', ProductController::class)->only(['show',  'update', 'destroy']);
+
 // Brands
-Route::get('brands', [BrandController::class, 'index'])->name('brand.index');
+Route::get('brands', [BrandController::class, 'index'])->name('brands');
 Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
     Route::get('{brand}', [BrandController::class, 'show'])->name('show');
     Route::put('{brand}', [BrandController::class, 'update'])->name('update');
