@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Database\Factories\OrderStatusFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +20,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Order> $orders
  * @property-read int|null $orders_count
- * @method static OrderStatusFactory factory($count = null, $state = [])
  * @method static Builder|OrderStatus newModelQuery()
  * @method static Builder|OrderStatus newQuery()
  * @method static Builder|OrderStatus query()

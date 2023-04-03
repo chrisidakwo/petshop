@@ -16,10 +16,10 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $user_id
- * @property int $order_status_id
- * @property int|null $payment_id
+ * @property string $order_status_uuid
+ * @property string|null $payment_uuid
  * @property string $uuid
- * @property array $products
+ * @property array<string, mixed> $products
  * @property array $address
  * @property float|null $delivery_fee
  * @property float $amount
@@ -38,8 +38,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order whereCreatedAt($value)
  * @method static Builder|Order whereDeliveryFee($value)
  * @method static Builder|Order whereId($value)
- * @method static Builder|Order whereOrderStatusId($value)
- * @method static Builder|Order wherePaymentId($value)
+ * @method static Builder|Order whereOrderStatusUuid($value)
+ * @method static Builder|Order wherePaymentUuid($value)
  * @method static Builder|Order whereProducts($value)
  * @method static Builder|Order whereShippedAt($value)
  * @method static Builder|Order whereUpdatedAt($value)
@@ -50,7 +50,8 @@ use Illuminate\Support\Carbon;
 class Order extends Model
 {
     protected $fillable = [
-        'uuid', 'user_id', 'order_status_id', 'products', 'address', 'delivery_fee', 'amount', 'shipped_at',
+        'uuid', 'user_id', 'order_status_uuid', 'products', 'address', 'delivery_fee', 'amount', 'shipped_at',
+        'payment_uuid',
     ];
 
     protected $casts = [
@@ -58,6 +59,8 @@ class Order extends Model
         'address' => 'array',
         'shipped_at' => 'datetime',
     ];
+
+    protected $with = ['orderStatus', 'payment', 'user'];
 
     /**
      * @return array<string, mixed>
@@ -91,11 +94,30 @@ class Order extends Model
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    public function getOriginalProducts(): array
+    {
+        $rawValue = json_decode($this->getRawOriginal('products'));
+
+        $products = [];
+
+        foreach ($rawValue as $value) {
+            $products[] = [
+                'product_id' => $value->product_id,
+                'quantity' => $value->quantity,
+            ];
+        }
+
+        return $products;
+    }
+
+    /**
      * @return BelongsTo<OrderStatus, Order>
      */
     public function orderStatus(): BelongsTo
     {
-        return $this->belongsTo(OrderStatus::class);
+        return $this->belongsTo(OrderStatus::class, 'order_status_uuid', 'uuid');
     }
 
     /**
@@ -103,7 +125,7 @@ class Order extends Model
      */
     public function payment(): BelongsTo
     {
-        return $this->belongsTo(Payment::class);
+        return $this->belongsTo(Payment::class, 'payment_uuid', 'uuid');
     }
 
     /**

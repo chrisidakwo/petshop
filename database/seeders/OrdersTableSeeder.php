@@ -12,6 +12,18 @@ class OrdersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Order::factory(5)->create();
+        $orders = Order::factory(5)->create();
+
+        $orders->each(function (Order $order) {
+            $orderProducts = $order->products;
+            $orderAmount = 0;
+
+            foreach ($orderProducts as $orderProduct) {
+                $orderAmount += $orderProduct['price'] * $orderProduct['quantity'];
+            }
+
+            $order->amount = $orderAmount;
+            $order->save();
+        });
     }
 }

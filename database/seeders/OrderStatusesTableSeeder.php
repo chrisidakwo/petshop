@@ -12,6 +12,12 @@ class OrderStatusesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        OrderStatus::factory(3)->create();
+        $statuses = ['Open', 'Pending Payment', 'Paid', 'Shipped', 'Cancelled'];
+
+        foreach ($statuses as $status) {
+            OrderStatus::query()->create([
+                'title' => $status,
+            ]);
+        }
     }
 }

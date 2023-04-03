@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
+            $table->uuid()->unique();
             $table->enum('type', Payment::getPaymentTypes());
             $table->json('details');
             $table->timestamps();

@@ -24,10 +24,10 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create()->id,
-            'order_status_id' => OrderStatus::factory()->create()->id,
-            'payment_id' => Payment::factory()->create()->id,
+            'order_status_uuid' => OrderStatus::query()->inRandomOrder()->first()->uuid,
+            'payment_uuid' => Payment::factory()->create()->uuid,
 
-            'products' => Product::factory(random_int(1, 5))
+            'products' => Product::factory(random_int(2, 4))
                 ->create()
                 ->map(function ($product) {
                     return [

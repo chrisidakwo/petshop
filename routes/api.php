@@ -18,6 +18,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotionController;
@@ -54,14 +55,22 @@ Route::resource('product', ProductController::class)->only(['show',  'update', '
 Route::get('order-statuses', [OrderStatusController::class, 'index'])->name('order-statuses');
 
 // Orders
-Route::group(['prefix' => 'orders'], function () {
-    Route::get('', [OrderController::class, 'index'])->name('orders');
+Route::middleware('auth:api')->group(function () {
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('', [OrderController::class, 'index'])->name('orders');
 //    Route::get('dashboard', [OrderController::class, 'dashboard'])->name('orders.dashboard');
 //    Route::get('shipment-locator', [OrderController::class, 'shipmentLocator'])->name('orders.shipment-locator');
-});
-//Route::post('order/create', [OrderController::class, 'store'])->name('order.store');
-//Route::resource('order', OrderController::class)->only(['show', 'update', 'destroy']);
+    });
+    Route::post('order/create', [OrderController::class, 'store'])->name('order.store');
+    Route::resource('order', OrderController::class)->only(['show', 'update', 'destroy']);
 //Route::get('order/{order}/download', [OrderController::class, 'download'])->name('order.download');
+});
+
+// Payments
+Route::middleware('auth:api')->group(function () {
+    Route::post('payments', [PaymentController::class, 'index'])->name('payments');
+    Route::post('payment/create', [PaymentController::class, 'store'])->name('payment.store');
+});
 
 // Categories
 Route::get('categories', [CategoryController::class, 'index'])->name('categories');

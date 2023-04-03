@@ -16,6 +16,7 @@ class BrandController extends Controller
 {
     public function __construct(private BrandService $brandService)
     {
+        $this->middleware(['auth:api'])->only(['update', 'delete']);
     }
 
     public function index(Request $request): JsonResponse

@@ -19,18 +19,18 @@ return new class extends Migration
                 ->on('users')
                 ->cascadeOnDelete();
 
-            $table->foreignId('order_status_id')
-                ->references('id')
+            $table->foreignUuid('order_status_uuid')
+                ->references('uuid')
                 ->on('order_statuses')
                 ->cascadeOnDelete();
 
-            $table->foreignId('payment_id')
+            $table->foreignUuid('payment_uuid')
                 ->nullable()
-                ->references('id')
+                ->references('uuid')
                 ->on('payments')
                 ->cascadeOnDelete();
 
-            $table->uuid();
+            $table->uuid()->unique();
             $table->json('products');
             $table->json('address');
             $table->double('delivery_fee', 8, 2)->nullable();
