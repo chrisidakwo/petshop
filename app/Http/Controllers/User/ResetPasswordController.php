@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-    public function showResetForm()
+    public function showResetForm(): string
     {
         return 'Reset Password Form';
     }

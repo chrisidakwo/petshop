@@ -42,7 +42,7 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store(StoreOrderRequest $request): JsonResponse
     {
         $order = $this->orderService->create($request->validated())
             ->load(['orderStatus', 'payment', 'user']);
@@ -68,7 +68,7 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order): JsonResponse
     {
-        $order =  $this->orderService->update($order, $request->validated())
+        $order = $this->orderService->update($order, $request->validated())
             ->load(['orderStatus', 'payment', 'user']);
 
         return $this->response(

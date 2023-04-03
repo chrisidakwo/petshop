@@ -20,8 +20,10 @@ use Illuminate\Support\Carbon;
  * @property string $slug
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Collection<int, Product> $products
  * @property-read int|null $products_count
+ *
  * @method static CategoryFactory factory($count = null, $state = [])
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
@@ -32,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category whereTitle($value)
  * @method static Builder|Category whereUpdatedAt($value)
  * @method static Builder|Category whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Category extends Model

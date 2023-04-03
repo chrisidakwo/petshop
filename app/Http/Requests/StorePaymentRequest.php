@@ -25,15 +25,18 @@ class StorePaymentRequest extends FormRequest
         ], $this->getPaymentTypeValidation($this->get('type')));
     }
 
+    /**
+     * @return array<string, array<string>>
+     */
     protected function getPaymentTypeValidation(string $paymentType): array
     {
         return match ($paymentType) {
             Payment::TYPE_CREDIT_CARD => [
                 'holder_name' => ['required', 'string'],
                 // Credit card numbers typically use 12 - 19 digits
-                'card_number' => ["required", 'min:12', 'max:19'],
-                'ccv' => ["required", 'numeric', 'size:3'],
-                'expire_date' => ["required", 'date', 'date_format:Y-m-d'],
+                'card_number' => ['required', 'min:12', 'max:19'],
+                'ccv' => ['required', 'numeric', 'size:3'],
+                'expire_date' => ['required', 'date', 'date_format:Y-m-d'],
             ],
             Payment::TYPE_BANK_TRANSFER => [
                 // Swift code typically contains 8 - 11 characters

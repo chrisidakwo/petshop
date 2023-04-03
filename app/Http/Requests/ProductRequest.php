@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +20,7 @@ class ProductRequest extends FormRequest
         /** @var Model $product */
         $product = $this->route('product');
 
-        if ($product  !== null) {
+        if ($product !== null) {
             $uniqueProductTitle = Rule::unique('products', 'title')->ignoreModel($product);
         }
 

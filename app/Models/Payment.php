@@ -20,8 +20,10 @@ use Illuminate\Support\Carbon;
  * @property array $details
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Collection<int, Order> $orders
  * @property-read int|null $orders_count
+ *
  * @method static PaymentFactory factory($count = null, $state = [])
  * @method static Builder|Payment newModelQuery()
  * @method static Builder|Payment newQuery()
@@ -32,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Payment whereType($value)
  * @method static Builder|Payment whereUpdatedAt($value)
  * @method static Builder|Payment whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Payment extends Model

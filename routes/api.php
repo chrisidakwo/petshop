@@ -55,19 +55,19 @@ Route::resource('product', ProductController::class)->only(['show',  'update', '
 Route::get('order-statuses', [OrderStatusController::class, 'index'])->name('order-statuses');
 
 // Orders
-Route::middleware('auth:api')->group(function () {
-    Route::group(['prefix' => 'orders'], function () {
+Route::middleware('auth:api')->group(function (): void {
+    Route::group(['prefix' => 'orders'], function (): void {
         Route::get('', [OrderController::class, 'index'])->name('orders');
 //    Route::get('dashboard', [OrderController::class, 'dashboard'])->name('orders.dashboard');
 //    Route::get('shipment-locator', [OrderController::class, 'shipmentLocator'])->name('orders.shipment-locator');
     });
     Route::post('order/create', [OrderController::class, 'store'])->name('order.store');
     Route::resource('order', OrderController::class)->only(['show', 'update', 'destroy']);
-//Route::get('order/{order}/download', [OrderController::class, 'download'])->name('order.download');
+    //Route::get('order/{order}/download', [OrderController::class, 'download'])->name('order.download');
 });
 
 // Payments
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function (): void {
     Route::post('payments', [PaymentController::class, 'index'])->name('payments');
     Route::post('payment/create', [PaymentController::class, 'store'])->name('payment.store');
 });
@@ -77,7 +77,7 @@ Route::get('categories', [CategoryController::class, 'index'])->name('categories
 
 // Brands
 Route::get('brands', [BrandController::class, 'index'])->name('brands');
-Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
+Route::group(['prefix' => 'brand', 'as' => 'brand.'], function (): void {
     Route::get('{brand}', [BrandController::class, 'show'])->name('show');
     Route::put('{brand}', [BrandController::class, 'update'])->name('update');
     Route::delete('{brand}', [BrandController::class, 'delete'])->name('delete');
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'file', 'as' => 'file.'], function (): void {
 });
 
 // Main
-Route::group(['prefix' => 'main', 'as' => 'main.'], function () {
+Route::group(['prefix' => 'main', 'as' => 'main.'], function (): void {
     Route::get('promotions', [PromotionController::class])->name('promotions');
     Route::get('blog', [PostController::class, 'listPosts'])->name('posts');
     Route::get('blog/{post}', [PostController::class, 'viewPost'])->name('posts');

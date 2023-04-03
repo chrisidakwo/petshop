@@ -25,8 +25,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Brand|null $brand
  * @property-read Category $category
+ *
  * @method static ProductFactory factory($count = null, $state = [])
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
@@ -45,6 +47,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product whereUuid($value)
  * @method static Builder|Product withTrashed()
  * @method static Builder|Product withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Product extends Model

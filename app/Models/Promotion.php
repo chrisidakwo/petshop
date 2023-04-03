@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property array $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static PromotionFactory factory($count = null, $state = [])
  * @method static Builder|Promotion newModelQuery()
  * @method static Builder|Promotion newQuery()
@@ -30,6 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Promotion whereTitle($value)
  * @method static Builder|Promotion whereUpdatedAt($value)
  * @method static Builder|Promotion whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Promotion extends Model

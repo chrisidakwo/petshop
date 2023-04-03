@@ -9,9 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ValidFilter extends Filter
 {
-    /**
-     * {@inheritdoc}
-     */
     public function apply(Builder $builder, mixed $value): Builder
     {
         return $builder->when($value === true, function (Builder $query) {

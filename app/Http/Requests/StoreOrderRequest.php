@@ -34,10 +34,10 @@ class StoreOrderRequest extends FormRequest
 
     public function withValidator(Validator $validator): void
     {
-        $validator->after(function (Validator $validator) {
+        $validator->after(function (Validator $validator): void {
             $products = (array) $this->get('products');
 
-            $uniqueProductsUuids = array_unique(Arr::pluck($products,'product_id'));
+            $uniqueProductsUuids = array_unique(Arr::pluck($products, 'product_id'));
 
             if (count($uniqueProductsUuids) < count($products)) {
                 for ($i = 0; $i < count($products); $i++) {

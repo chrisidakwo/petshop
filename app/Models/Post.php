@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property array $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static PostFactory factory($count = null, $state = [])
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
@@ -32,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Post whereTitle($value)
  * @method static Builder|Post whereUpdatedAt($value)
  * @method static Builder|Post whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Post extends Model

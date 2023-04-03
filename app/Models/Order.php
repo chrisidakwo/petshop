@@ -26,9 +26,11 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $shipped_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read OrderStatus $orderStatus
  * @property-read Payment|null $payment
  * @property-read User $user
+ *
  * @method static OrderFactory factory($count = null, $state = [])
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
@@ -45,6 +47,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order whereUpdatedAt($value)
  * @method static Builder|Order whereUserId($value)
  * @method static Builder|Order whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Order extends Model
@@ -60,6 +63,9 @@ class Order extends Model
         'shipped_at' => 'datetime',
     ];
 
+    /**
+     * @var array<string> $with
+     */
     protected $with = ['orderStatus', 'payment', 'user'];
 
     /**
@@ -84,7 +90,7 @@ class Order extends Model
                 'uuid' => $product->uuid,
                 'price' => round($product->price, 2),
                 'product' => $product->title,
-                'quantity' => $quantity
+                'quantity' => $quantity,
             ];
 
             $returnProducts[] = $productArr;
@@ -94,7 +100,7 @@ class Order extends Model
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<int, array<string, mixed>>
      */
     public function getOriginalProducts(): array
     {

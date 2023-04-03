@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Services;
 
 use App\Models\Payment;
@@ -26,6 +28,7 @@ class PaymentService
      */
     protected function updatePaymentDetailsByType(Payment $payment, array $data): Payment
     {
+        /** @var 'bank_transfer' | 'cash_on_delivery' | 'credit_card' $paymentType */
         $paymentType = $data['type'];
 
         $payment->details = match ($paymentType) {

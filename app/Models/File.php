@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property string $type File mime type
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static FileFactory factory($count = null, $state = [])
  * @method static Builder|File newModelQuery()
  * @method static Builder|File newQuery()
@@ -32,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|File whereType($value)
  * @method static Builder|File whereUpdatedAt($value)
  * @method static Builder|File whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class File extends Model

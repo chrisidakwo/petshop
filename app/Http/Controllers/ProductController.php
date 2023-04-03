@@ -33,7 +33,7 @@ class ProductController extends Controller
         $sortBy = $request->get('sortBy');
         $desc = $request->boolean('desc');
 
-        $searchFields = Arr::except($request->query(), ['page', 'limit', 'sortBy', 'desc']);
+        $searchFields = Arr::except($request->all(), ['page', 'limit', 'sortBy', 'desc']);
 
         $products = $this->productService->list(
             fields: $searchFields,

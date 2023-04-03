@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Services;
 
 use App\Models\Promotion;
@@ -12,7 +14,6 @@ class PromotionService
     /**
      * @param array<string, mixed> $fields
      *
-     * @return LengthAwarePaginator
      * @throws NotFoundFilterException
      */
     public function list(
