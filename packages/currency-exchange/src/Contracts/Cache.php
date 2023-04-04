@@ -16,5 +16,5 @@ interface Cache
     /**
      * Save a new item to cache
      */
-    public function saveItem(string $key, mixed $value): void;
+    public function saveItem(string $key, mixed $value): bool;
 }

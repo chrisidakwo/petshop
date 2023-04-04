@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Petshop\CurrencyExchange\Facades;
+
 use Illuminate\Support\Facades\Facade;
 use Petshop\CurrencyExchange\ExchangeRate;
 
@@ -10,6 +14,8 @@ use Petshop\CurrencyExchange\ExchangeRate;
  * @method static ExchangeRate getExchangeRate(string $destCurrency, int|float $amount)
  * @method static \Petshop\CurrencyExchange\CurrencyExchange setDefaultCurrency(string $currency = null)
  * @method static string|null getDefaultCurrency()
+ *
+ * @see \Petshop\CurrencyExchange\CurrencyExchange
  */
 class CurrencyExchange extends Facade
 {

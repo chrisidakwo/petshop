@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Petshop\CurrencyExchange\Providers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Petshop\CurrencyExchange\Contracts\ExchangeProvider;
 use Petshop\CurrencyExchange\ExchangeRate;
 
-class ECBExchangeProvider implements ExchangeProvider
+class ECBExchangeProvider extends AbstractExchangeProvider
 {
     /**
      * @inheritDoc
@@ -41,6 +40,6 @@ class ECBExchangeProvider implements ExchangeProvider
      */
     public function getSupportedCurrencies(): array
     {
-        return app()->make('config')->get('currency-exchange.supported_currencies');
+        return $this->app->make('config')->get('currency-exchange.supported_currencies');
     }
 }

@@ -9,10 +9,33 @@
             "email": "chris.idakwo@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "ext-libxml": "*",
+        "php": "^8.0",
+        "illuminate/contracts": "^10.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10.0"
+    },
     "autoload": {
         "psr-4": {
             "Petshop\\CurrencyExchange\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Petshop\\CurrencyExchange\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Petshop\\CurrencyExchange\\CurrencyExchangeServiceProvider"
+            ],
+            "aliases": {
+                "CurrencyExchange": "Petshop\\CurrencyExchange\\Facades\\CurrencyExchange"
+            }
         }
     }
 }
