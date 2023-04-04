@@ -10,8 +10,10 @@ use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Order\OrderResourceCollection;
 use App\Http\Services\OrderService;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
@@ -61,6 +63,18 @@ class OrderController extends Controller
         return $this->response(
             OrderResource::make($order)->toArray($request),
         );
+    }
+
+    public function download(Order $order): Response
+    {
+        $order = $order->load(['orderStatus', 'payment', 'user']);
+
+        $orderSubTotal = $order->subTotalAmount();
+
+        $pdf = Pdf::loadView('orders.receipt', compact('order', 'orderSubTotal'))
+            ->setPaper('A4');
+
+        return $pdf->download("$order->uuid.pdf");
     }
 
     /**

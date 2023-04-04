@@ -118,6 +118,13 @@ class Order extends Model
         return $products;
     }
 
+    public function subTotalAmount(): float|int
+    {
+        return array_reduce($this->products, function ($sum, $product): float {
+            return $sum + ($product['quantity'] *  $product['price']);
+        }, 0);
+    }
+
     /**
      * @return BelongsTo<OrderStatus, Order>
      */

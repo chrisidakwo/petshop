@@ -63,7 +63,7 @@ Route::middleware('auth:api')->group(function (): void {
     });
     Route::post('order/create', [OrderController::class, 'store'])->name('order.store');
     Route::resource('order', OrderController::class)->only(['show', 'update', 'destroy']);
-    //Route::get('order/{order}/download', [OrderController::class, 'download'])->name('order.download');
+    Route::get('order/{order}/download', [OrderController::class, 'download'])->name('order.download');
 });
 
 // Payments
