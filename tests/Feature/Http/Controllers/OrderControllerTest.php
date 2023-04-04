@@ -150,4 +150,24 @@ class OrderControllerTest extends TestCase
         $this->assertDatabaseCount('payments', 0);
         $this->assertDatabaseCount('orders', 0);
     }
+
+    public function testItDownloadsAnOrderReceipt(): void
+    {
+        $user = $this->createPredictableRegularUser();
+
+        OrderStatus::factory(3)->create();
+        $order = Order::factory()->create();
+
+        $this->actingAs($user);
+
+        $response = $this->getJson(route('api.order.download', $order->uuid));
+
+        $responseContent = $response->content();
+
+        $response->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/pdf')
+            ->assertHeader('Content-Length', strlen($responseContent));
+
+        $this->assertStringContainsString('%PDF-', $responseContent);
+    }
 }

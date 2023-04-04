@@ -27,7 +27,7 @@ class OrderFactory extends Factory
             'order_status_uuid' => OrderStatus::query()->inRandomOrder()->first()->uuid,
             'payment_uuid' => Payment::factory()->create()->uuid,
 
-            'products' => Product::factory(random_int(2, 4))
+            'products' => Product::factory(random_int(2, 6))
                 ->create()
                 ->map(function ($product) {
                     return [
