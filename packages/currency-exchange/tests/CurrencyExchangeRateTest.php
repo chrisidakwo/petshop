@@ -7,29 +7,25 @@ namespace Petshop\CurrencyExchange\Tests;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Mockery;
 use Mockery\MockInterface;
-use PetShop\CurrencyExchange\Contracts\Cache;
 use Petshop\CurrencyExchange\Contracts\CurrencyExchange;
 use Petshop\CurrencyExchange\Contracts\ExchangeProvider;
 use Petshop\CurrencyExchange\Exception\InvalidCurrency;
 use Petshop\CurrencyExchange\ExchangeRate;
-use Petshop\CurrencyExchange\Providers\ECBExchangeProvider;
+use Petshop\CurrencyExchange\Providers\Ecb\EcbExchangeProvider;
 use Petshop\CurrencyExchange\Tests\Data\TestExchangeRate;
 
 class CurrencyExchangeRateTest extends TestCase
 {
     protected CurrencyExchange $currencyExchange;
-    protected Cache|MockInterface $cache;
     protected ExchangeProvider|MockInterface $provider;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->cache = Mockery::mock(Cache::class);
-        $this->provider = Mockery::mock(ECBExchangeProvider::class);
+        $this->provider = Mockery::mock(EcbExchangeProvider::class);
 
         $this->currencyExchange = new \Petshop\CurrencyExchange\CurrencyExchange(
-            cache: $this->cache,
             app: $this->app,
             providers: [
                 'EUR' => $this->provider,
@@ -70,11 +66,11 @@ class CurrencyExchangeRateTest extends TestCase
             config('currency-exchange.supported_currencies')
         );
 
-        $this->provider->shouldReceive('convert')->once()
+        $this->provider->shouldReceive('getRate')->once()
             ->andReturn(new TestExchangeRate(
                 'EUR',
-                23,
                 'USD',
+                23,
                 23 * 1.0870
             ));
 
@@ -93,12 +89,12 @@ class CurrencyExchangeRateTest extends TestCase
             config('currency-exchange.supported_currencies')
         );
 
-        $this->provider->shouldReceive('convert')->once()
+        $this->provider->shouldReceive('getRate')->once()
             ->andReturn(new TestExchangeRate(
                 'EUR',
-                180,
                 'INR',
-                180 * 89.4710
+                180,
+                89.4710
             ));
 
         $result = $this->currencyExchange->to('INR')->convert(180);

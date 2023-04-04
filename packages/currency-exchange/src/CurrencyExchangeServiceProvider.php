@@ -6,8 +6,6 @@ namespace Petshop\CurrencyExchange;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use PetShop\CurrencyExchange\Cache\Repository;
-use PetShop\CurrencyExchange\Contracts\Cache;
 
 class CurrencyExchangeServiceProvider extends ServiceProvider
 {
@@ -17,15 +15,15 @@ class CurrencyExchangeServiceProvider extends ServiceProvider
             __DIR__ . '/../config/currency-exchange.php', 'currency-exchange',
         );
 
-        $this->app->bind(Cache::class, Repository::class);
-
-        $this->app->instance(CurrencyExchange::class, function (Application $app) {
-            return new CurrencyExchange(
-                cache: $app->make(Cache::class),
-                app: $app,
-                providers: $app->make('config')->get('currency-exchange.exchange_providers'),
-            );
-        });
+        $this->app->bind(
+            \Petshop\CurrencyExchange\Contracts\CurrencyExchange::class,
+            function (Application $app) {
+                return new CurrencyExchange(
+                    app: $app,
+                    providers: $app->make('config')->get('currency-exchange.exchange_providers'),
+                );
+            }
+        );
     }
 
     public function boot()
@@ -33,5 +31,7 @@ class CurrencyExchangeServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/currency-exchange.php' => config_path('currency_exchange.php'),
         ], 'config');
+
+        $this->loadRoutesFrom(__DIR__.'/../routes/route.php');
     }
 }

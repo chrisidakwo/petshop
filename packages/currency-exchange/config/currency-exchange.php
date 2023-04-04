@@ -3,7 +3,7 @@
 return [
     'default_currency' => 'EUR',
     'exchange_providers' => [
-        'EUR' => Petshop\CurrencyExchange\Providers\ECBExchangeProvider::class,
+        'EUR' => Petshop\CurrencyExchange\Providers\Ecb\EcbExchangeProvider::class,
     ],
     'supported_currencies' => [
         'EUR',

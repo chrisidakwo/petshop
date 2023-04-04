@@ -11,18 +11,13 @@ use Petshop\CurrencyExchange\ExchangeRate;
 interface ExchangeProvider
 {
     /**
-     * Get exchange rates for the provided date.
+     * Get the exchange rates for the day
      *
-     * The $fallbackPeriod allows the designation of a period of time for which the API can search backwards
-     * to get the last updated exchange rate. Certain APIs might not update exchange rates over the weekend,
-     * or if the rate does not change. Hence, this allows for returning a valid value without having
-     * the exception thrown
-     *
-     * @return array<string, float>
+     * @return array<int, ExchangeRate>
      *
      * @throws ExchangeRateNotFound
      */
-    public function getRates(string $date, int $fallBackPeriod = 7): array;
+    public function getRates(): array;
 
     /**
      * If exchange rate is found, it returns an ExchangeRate object. Else, it throws an ExchangeRateNotFound exception
@@ -31,7 +26,7 @@ interface ExchangeProvider
      *
      * @throws InvalidCurrency|ExchangeRateNotFound
      */
-    public function convert(string $destCurrency, string $date = null): ExchangeRate;
+    public function getRate(string $destCurrency): ExchangeRate;
 
     /**
      * Get the source currency for the provider

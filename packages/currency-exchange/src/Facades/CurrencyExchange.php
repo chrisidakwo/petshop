@@ -12,8 +12,8 @@ use Petshop\CurrencyExchange\ExchangeRate;
  * @method static \Petshop\CurrencyExchange\Contracts\CurrencyExchange from(string|null $sourceCurrency)
  * @method static \Petshop\CurrencyExchange\Contracts\CurrencyExchange to(string $destCurrency)
  * @method static ExchangeRate getExchangeRate(string $destCurrency, int|float $amount)
- * @method static \Petshop\CurrencyExchange\CurrencyExchange setDefaultCurrency(string $currency = null)
- * @method static string|null getDefaultCurrency()
+ * @method static \Petshop\CurrencyExchange\CurrencyExchange setSourceCurrency(string $currency)
+ * @method static string getSourceCurrency()
  *
  * @see \Petshop\CurrencyExchange\CurrencyExchange
  */
@@ -21,6 +21,6 @@ class CurrencyExchange extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'currency-exchange';
+        return \Petshop\CurrencyExchange\Contracts\CurrencyExchange::class;
     }
 }

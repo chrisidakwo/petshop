@@ -11,8 +11,10 @@
     ],
     "require": {
         "ext-libxml": "*",
+        "ext-curl": "*",
         "php": "^8.0",
-        "illuminate/contracts": "^10.5"
+        "illuminate/contracts": "^10.5",
+        "guzzlehttp/guzzle": "^7.5"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",
@@ -25,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Petshop\\CurrencyExchange\\Tests\\": "tests/"
+            "Petshop\\CurrencyExchange\\Tests\\": "tests"
         }
     },
     "extra": {

@@ -8,11 +8,14 @@ class ExchangeRate
 {
     protected string $sourceCurrency;
     protected int|float $sourceAmount;
-    protected string $destCurrency;
+    protected string|null $destCurrency;
     protected int|float $exchangeAmount;
 
     public function __construct(
-        string $sourceCurrency, int|float $sourceAmount, string $destCurrency, int|float $exchangeAmount
+        string $sourceCurrency,
+        string $destCurrency = null,
+        int|float $sourceAmount = 0,
+        int|float $exchangeAmount = 0,
     )
     {
         $this->sourceCurrency = $sourceCurrency;
@@ -59,7 +62,7 @@ class ExchangeRate
         return $this->sourceAmount;
     }
 
-    public function getDestCurrency(): string
+    public function getDestCurrency(): ?string
     {
         return $this->destCurrency;
     }

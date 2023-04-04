@@ -6,7 +6,6 @@ namespace Petshop\CurrencyExchange;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
-use PetShop\CurrencyExchange\Contracts\Cache;
 use Petshop\CurrencyExchange\Contracts\CurrencyExchange as ICurrencyExchange;
 use Petshop\CurrencyExchange\Contracts\ExchangeProvider;
 use Petshop\CurrencyExchange\Exception\InvalidCurrency;
@@ -15,7 +14,6 @@ class CurrencyExchange implements ICurrencyExchange
 {
     protected string|null $sourceCurrency;
     protected string $destCurrency;
-    protected Cache $cache;
     protected Application $app;
     protected ExchangeProvider|null $provider;
 
@@ -27,10 +25,9 @@ class CurrencyExchange implements ICurrencyExchange
     /**
      * @param array<string, string> $providers
      */
-    public function __construct(Cache $cache, Application $app, array $providers)
+    public function __construct(Application $app, array $providers)
     {
         $this->sourceCurrency = null;
-        $this->cache = $cache;
 
         $this->providers = $providers;
         $this->app = $app;
@@ -78,9 +75,7 @@ class CurrencyExchange implements ICurrencyExchange
 
         $this->assertSourceAndDestinationCurrenciesAreValid();
 
-        $sourceCurrency = $this->sourceCurrency;
-
-        $exchangeRate = $this->provider->convert($sourceCurrency, $destCurrency);
+        $exchangeRate = $this->provider->getRate($this->destCurrency);
 
         return $exchangeRate->setSourceAmount($amount);
     }
@@ -127,7 +122,9 @@ class CurrencyExchange implements ICurrencyExchange
 
         /** @var ExchangeProvider $provider */
         $this->provider = $provider = match(is_string($availableProviders[$sourceCurrency])) {
-            true => new $availableProviders[$sourceCurrency]($this->app),
+            true => new $availableProviders[$sourceCurrency](
+                $this->app,
+            ),
             false => $availableProviders[$sourceCurrency],
         };
 

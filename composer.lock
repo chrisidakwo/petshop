@@ -145,15 +145,16 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/currency-exchange",
-                "reference": "8107cdc9fabb1e4373df482d56c35b564966c13a"
+                "reference": "4da46cd37cd2d212d4d5d8aab8422fb711360775"
             },
             "require": {
                 "ext-libxml": "*",
-                "illuminate/container": "^10.6",
+                "guzzlehttp/guzzle": "^7.5",
                 "illuminate/contracts": "^10.5",
                 "php": "^8.0"
             },
             "require-dev": {
+                "orchestra/testbench": "^8.0",
                 "phpunit/phpunit": "^10.0"
             },
             "type": "package",
