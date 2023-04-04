@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Services;
 
-use App\Auth\Contracts\JwtSubject;
-use App\Auth\Contracts\Providers\JWT;
-use App\Exceptions\JwtException;
-use App\Models\JwtToken;
 use App\Models\User;
 use DateTimeImmutable;
+use App\Models\JwtToken;
+use App\Exceptions\JwtException;
+use App\Auth\Contracts\JwtSubject;
+use App\Auth\Contracts\Providers\JWT;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class JwtTokenService

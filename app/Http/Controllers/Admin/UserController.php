@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResourceCollection;
-use App\Http\Services\UserService;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {

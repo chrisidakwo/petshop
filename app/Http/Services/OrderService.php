@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Services;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
-use App\Models\User;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService
 {
@@ -88,7 +88,6 @@ class OrderService
     {
         $productsUuids = Arr::pluck($data['products'], 'product_id');
 
-        /** @var float|int $orderAmount */
         return Product::query()->whereIn('uuid', $productsUuids)
             ->get()
             ->reduce(function (int|float $sum, Product $product, int $index) use ($data): float {

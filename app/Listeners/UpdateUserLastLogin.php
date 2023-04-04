@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use App\Events\UserLoggedIn;
 use App\Models\User;
+use App\Events\UserLoggedIn;
 
 class UpdateUserLastLogin
 {

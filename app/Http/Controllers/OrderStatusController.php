@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\OrderStatus\OrderStatusResourceCollection;
-use App\Http\Services\OrderStatusService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\OrderStatusService;
+use App\Http\Resources\OrderStatus\OrderStatusResourceCollection;
 
 class OrderStatusController extends Controller
 {

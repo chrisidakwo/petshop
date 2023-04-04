@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Services;
 
 use App\Models\File;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use League\Flysystem\FilesystemException;
+use Illuminate\Http\UploadedFile;
 use Symfony\Component\Mime\MimeTypes;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FilesystemException;
 
 class FileService
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Encryption\Encrypter;
+use Illuminate\Console\ConfirmableTrait;
 
 class GenerateJwtSecretCommand extends Command
 {
@@ -14,15 +14,11 @@ class GenerateJwtSecretCommand extends Command
 
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'jwt:secret';
 
     /**
      * The console command description.
-     *
-     * @var string
      */
     protected $description = 'Generate JWT secret';
 

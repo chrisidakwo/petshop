@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Auth\Jwt;
+use App\Models\User;
 use App\Exceptions\JwtException;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\DeleteUserRequest;
-use App\Http\Requests\StoreAdminUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\User\UserResource;
-use App\Http\Services\UserService;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreAdminUserRequest;
 
 class AdminController extends Controller
 {

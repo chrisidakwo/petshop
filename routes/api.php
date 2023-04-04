@@ -13,19 +13,19 @@ declare(strict_types=1);
 |
 */
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderStatusController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\User\AuthController;
-use App\Http\Controllers\User\ForgotPasswordController;
-use App\Http\Controllers\User\ResetPasswordController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\User\ResetPasswordController;
+use App\Http\Controllers\User\ForgotPasswordController;
 
 // Users
 Route::group(['prefix' => 'user', 'as' => 'user.'], function (): void {

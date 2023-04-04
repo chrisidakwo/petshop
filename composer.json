@@ -40,7 +40,7 @@
     },
     "scripts": {
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
-        "code-analysis": "@php artisan insights --fix",
+        "code-analysis": "@php artisan insights",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

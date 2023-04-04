@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\BrandService;
 use App\Http\Requests\UpdateBrandRequest;
 use App\Http\Resources\Brand\BrandResource;
 use App\Http\Resources\Brand\BrandResourceCollection;
-use App\Http\Services\BrandService;
-use App\Models\Brand;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {

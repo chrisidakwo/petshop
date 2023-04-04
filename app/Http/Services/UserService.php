@@ -6,8 +6,8 @@ namespace App\Http\Services;
 
 use App\Models\User;
 use EloquentBuilder;
-use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 
 class UserService
 {

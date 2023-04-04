@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Services;
 
-use App\Models\Product;
 use EloquentBuilder;
-use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
+use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 
 class ProductService
 {

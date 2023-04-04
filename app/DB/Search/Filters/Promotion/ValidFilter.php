@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DB\Search\Filters\Promotion;
 
-use Fouladgar\EloquentBuilder\Support\Foundation\Contracts\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Fouladgar\EloquentBuilder\Support\Foundation\Contracts\Filter;
 
 class ValidFilter extends Filter
 {

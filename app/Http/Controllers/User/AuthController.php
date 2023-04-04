@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\BaseAuthController;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Controllers\BaseAuthController;
 
 class AuthController extends BaseAuthController
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use App\Events\Auth\JwtGeneratedForUser;
-use App\Http\Services\JwtTokenService;
 use App\Models\User;
+use App\Http\Services\JwtTokenService;
+use App\Events\Auth\JwtGeneratedForUser;
 
 class PersistJwtTokenToDB
 {

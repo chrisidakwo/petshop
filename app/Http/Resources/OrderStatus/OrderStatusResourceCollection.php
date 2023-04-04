@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\OrderStatus;
 
-use App\Http\Resources\BaseResourceCollection;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use App\Http\Resources\BaseResourceCollection;
 
 /**
  * @see OrderStatus

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Database\Factories\FileFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Database\Factories\FileFactory;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * App\Models\File

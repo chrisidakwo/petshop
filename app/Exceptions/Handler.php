@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Throwable;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -42,7 +42,6 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * @param ValidationException $e
      * @param Request $request
      */
     protected function convertValidationExceptionToResponse(

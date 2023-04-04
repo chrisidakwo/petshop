@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Events;
 
 use App\Auth\Contracts\JwtSubject;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 
 class UserLoggedIn
 {

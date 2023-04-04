@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Auth\Validators;
 
+use Exception;
 use App\Auth\Contracts\Validator;
 use App\Exceptions\InvalidBearerToken;
-use Exception;
 
 class TokenValidator implements Validator
 {

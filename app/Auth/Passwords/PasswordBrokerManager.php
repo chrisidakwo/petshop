@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Auth\Passwords;
 
+use InvalidArgumentException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Auth\PasswordBrokerFactory;
 use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
-use Illuminate\Contracts\Auth\PasswordBrokerFactory;
-use Illuminate\Contracts\Foundation\Application;
-use InvalidArgumentException;
 
 class PasswordBrokerManager implements PasswordBrokerFactory
 {

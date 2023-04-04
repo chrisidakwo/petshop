@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Product;
 
-use App\Http\Resources\Brand\BrandResource;
-use App\Http\Resources\Category\CategoryResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Resources\Brand\BrandResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Category\CategoryResource;
 
 /**
  * @mixin Product

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\BlogService;
 use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\Blog\PostResourceCollection;
-use App\Http\Services\BlogService;
-use App\Models\Post;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {

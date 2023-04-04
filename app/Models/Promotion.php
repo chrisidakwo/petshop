@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Database\Factories\PromotionFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Database\Factories\PromotionFactory;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * App\Models\Promotion

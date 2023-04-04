@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ProductRequest;
+use App\Http\Services\ProductService;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductResourceCollection;
-use App\Http\Services\ProductService;
-use App\Models\Product;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class ProductController extends Controller
 {

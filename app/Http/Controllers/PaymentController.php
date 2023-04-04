@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\PaymentService;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Resources\Payment\PaymentResource;
-use App\Http\Services\PaymentService;
-use Illuminate\Http\JsonResponse;
 
 class PaymentController extends Controller
 {

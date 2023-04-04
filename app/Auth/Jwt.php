@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Auth;
 
-use App\Auth\Contracts\JwtSubject;
-use App\Auth\Validators\TokenValidator;
-use App\Events\Auth\JwtGeneratedForUser;
-use App\Exceptions\InvalidBearerToken;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Exceptions\JwtException;
 use App\Http\Parsers\HttpParser;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Auth\Contracts\JwtSubject;
+use App\Exceptions\InvalidBearerToken;
+use App\Auth\Validators\TokenValidator;
+use App\Events\Auth\JwtGeneratedForUser;
 
 class Jwt
 {

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Auth;
 
-use App\Auth\Contracts\JwtSubject;
 use App\Events\UserLoggedIn;
-use App\Exceptions\InvalidBearerToken;
-use App\Exceptions\JwtException;
-use App\Http\Services\JwtTokenService;
-use Illuminate\Auth\GuardHelpers;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
+use App\Exceptions\JwtException;
+use Illuminate\Auth\GuardHelpers;
+use App\Auth\Contracts\JwtSubject;
+use Illuminate\Contracts\Auth\Guard;
+use App\Exceptions\InvalidBearerToken;
+use App\Http\Services\JwtTokenService;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class JwtGuard implements Guard
 {
@@ -51,8 +51,11 @@ class JwtGuard implements Guard
 
         $token = $this->getToken();
 
-        if ($token && ($result = $this->jwt->validateToken()) && $this->validateSubject()) {
+        if ($token
             /** @var array<string, mixed> $result */
+            && ($result = $this->jwt->validateToken())
+            && $this->validateSubject()) {
+
             $tokenExists = $this->jwtTokenService->find($token);
 
             if ($tokenExists === null) {

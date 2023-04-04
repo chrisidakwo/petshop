@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Auth\Providers;
 
+use Exception;
+use DateTimeImmutable;
+use Lcobucci\JWT\Signer;
+use Lcobucci\JWT\Builder;
+use Illuminate\Support\Arr;
+use Lcobucci\JWT\Configuration;
+use App\Exceptions\JwtException;
+use Lcobucci\JWT\UnencryptedToken;
 use App\Auth\Contracts\Providers\JWT;
 use App\Exceptions\InvalidBearerToken;
-use App\Exceptions\JwtException;
-use DateTimeImmutable;
-use Exception;
-use Illuminate\Support\Arr;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Token\RegisteredClaims;
-use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
 class JwtProvider implements JWT

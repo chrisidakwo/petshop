@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Promotion\PromotionResourceCollection;
-use App\Http\Services\PromotionService;
-use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\PromotionService;
+use App\Http\Resources\Promotion\PromotionResourceCollection;
+use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 
 class PromotionController extends Controller
 {

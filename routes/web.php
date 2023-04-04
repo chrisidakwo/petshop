@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\User\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------

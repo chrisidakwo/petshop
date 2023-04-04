@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Auth\Jwt;
+use App\Models\User;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use App\Exceptions\JwtException;
+use Illuminate\Http\JsonResponse;
+use App\Http\Services\UserService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeleteUserRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\User\UserResource;
-use App\Http\Services\UserService;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {

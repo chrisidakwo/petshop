@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
-use Illuminate\Auth\AuthenticationException;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class CheckIsAdmin

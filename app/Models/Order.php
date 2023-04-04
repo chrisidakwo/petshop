@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Database\Factories\OrderFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Database\Factories\OrderFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Order
@@ -121,7 +121,7 @@ class Order extends Model
     public function subTotalAmount(): float|int
     {
         return array_reduce($this->products, function ($sum, $product): float {
-            return $sum + ($product['quantity'] *  $product['price']);
+            return $sum + ($product['quantity'] * $product['price']);
         }, 0);
     }
 

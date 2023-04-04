@@ -51,78 +51,45 @@ return [
     */
 
     'exclude' => [
-        '_ide_helper.php',
-        'public/*',
-        'database/*',
+        'app/Providers',
     ],
 
-    'add' => [
-        \NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes::class => [
-            \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses::class,
-        ],
-    ],
+    'add' => [],
 
     'remove' => [
-        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses::class,
-        \SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff::class,
-        \SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff::class,
-        \SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff::class,
-        \SlevomatCodingStandard\Sniffs\Classes\SuperfluousExceptionNamingSniff::class,
-        \SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff::class,
+        // Code
+        \SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff::class,          // Declare strict types
+        \SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff::class,       // Forbidden public property
+        \PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer::class,                   // Visibility required
+        \SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff::class,       // Class constant visibility
+        \SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff::class,       // Disallow empty
+        \PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer::class,                             // No empty comment
+        \SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff::class,  // Useless function doc comment
+
+        // Architecture
+        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses::class,            //Normal classes are forbidden
+
+        // Style
+        \PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterCastSniff::class,  // Space after cast
+        \PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterNotSniff::class,   // Space after not
+        \SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff::class,   // Alphabetically sorted uses
+        \SlevomatCodingStandard\Sniffs\Commenting\DocCommentSpacingSniff::class,          // Doc comment spacing
+        \PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer::class,                 // Ordered class elements
+        \PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer::class,                         // Single quote
     ],
 
     'config' => [
+        \NunoMaduro\PhpInsights\Domain\Insights\CyclomaticComplexityIsHigh::class => [
+            'maxComplexity' => 8,
+        ],
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff::class => [
             'lineLimit' => 120,
-            'absoluteLineLimit' => 160
+            'absoluteLineLimit' => 120,
+            'ignoreComments' => false,
         ],
-        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods::class => [
-            'title' => 'The usage of private methods is not idiomatic in Laravel.',
-        ],
-        \SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class => [
-            'exclude' => [
-                'app/Exceptions/Handler.php',
-                'app/Providers/JwtAuthServiceProvider.php',
-                'app/Http/Resources/BaseResourceCollection.php',
-                'app/Http/Resources/File/FileResource.php',
-                'app/Http/Resources/User/UserResource.php',
-                'app/Http/Resources/User/UserResourceCollection.php',
-                'app/Http/Controllers/Admin/AdminController.php',
-                'app/Http/Resources/Product/ProductResource',
-                'app/Http/Resources/Product/ProductResourceCollection',
-                'app/Http/Resources/Promotion/PromotionResource',
-                'app/Http/Resources/Promotion/PromotionResourceCollection',
-                'app/Http/Resources/Payment/PaymentResource.php',
-                'app/Http/Resources/Payment/PaymentResourceCollection.php',
-                'app/Http/Resources/Order/OrderResource.php',
-                'app/Http/Resources/Order/OrderResourceCollection.php',
-                'app/Http/Resources/OrderStatus/OrderStatusResource.php',
-                'app/Http/Resources/OrderStatus/OrderStatusResourceCollection.php',
-                'app/Http/Resources/Brand/BrandResource.php',
-                'app/Http/Resources/Brand/BrandResourceCollection.php',
-                'app/Http/Resources/Category/CategoryResource.php',
-                'app/Http/Resources/Category/CategoryResourceCollection.php',
-                'app/Http/Resources/Blog/PostResource.php',
-                'app/Http/Resources/Blog/PostResourceCollection.php',
-            ],
-        ],
-        \NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff::class => [
-            'exclude' => [
-                'app/Auth/Jwt.php',
-                'app/Auth/JwtGuard.php',
-                'app/Auth/Passwords/PasswordBrokerManager.php',
-            ]
-        ],
-        \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses::class => [
-            'exclude' => [
-                'app/Exceptions/InvalidBearerToken.php',
-            ]
-        ],
-        \SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff::class =>[
-            'exclude' => [
-                'app/Http/Resources/User/UserResource.php',
-                'app/Http/Resources/Order/OrderResource.php',
-            ],
+        \PhpCsFixer\Fixer\Import\OrderedImportsFixer::class => [
+            'imports_order' => ['class', 'const', 'function'],
+            'sort_algorithm' => 'length',
         ],
     ],
 
@@ -138,11 +105,11 @@ return [
     */
 
     'requirements' => [
-//        'min-quality' => 0,
-//        'min-complexity' => 0,
-//        'min-architecture' => 0,
-//        'min-style' => 0,
-//        'disable-security-check' => false,
+        'min-quality' => 75,
+        'min-complexity' => 75,
+        'min-architecture' => 75,
+        'min-style' => 75,
+        'disable-security-check' => false,
     ],
 
     /*

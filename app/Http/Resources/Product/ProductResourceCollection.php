@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Product;
 
-use App\Http\Resources\BaseResourceCollection;
 use Illuminate\Http\Request;
+use App\Http\Resources\BaseResourceCollection;
 
 /**
  * @see \App\Models\Product

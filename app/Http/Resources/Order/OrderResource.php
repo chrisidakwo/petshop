@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Order;
 
-use App\Http\Resources\OrderStatus\OrderStatusResource;
-use App\Http\Resources\Payment\PaymentResource;
-use App\Http\Resources\User\UserResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\Payment\PaymentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\OrderStatus\OrderStatusResource;
 
 /**
  * @mixin Order

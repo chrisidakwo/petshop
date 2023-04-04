@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Services;
 
-use App\Models\Promotion;
 use EloquentBuilder;
-use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
+use App\Models\Promotion;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
 
 class PromotionService
 {
