@@ -68,7 +68,6 @@ Route::middleware('auth:api')->group(function (): void {
 
 // Payments
 Route::middleware('auth:api')->group(function (): void {
-    Route::post('payments', [PaymentController::class, 'index'])->name('payments');
     Route::post('payment/create', [PaymentController::class, 'store'])->name('payment.store');
 });
 

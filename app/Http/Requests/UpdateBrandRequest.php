@@ -19,7 +19,13 @@ class UpdateBrandRequest extends FormRequest
         $brand = $this->route('brand');
 
         return [
-            'title' => ['required', 'string', Rule::unique('brands')->ignoreModel($brand)],
+            'title' => [
+                'required',
+                'string',
+                $brand !== null
+                    ? Rule::unique('brands', 'title')->ignoreModel($brand)
+                    : Rule::unique('brands', 'title'),
+            ],
         ];
     }
 

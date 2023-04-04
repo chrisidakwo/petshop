@@ -1,0 +1,1206 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "PetShop",
+    "description": "PetShop API",
+    "version": "1.0.0"
+  },
+  "host": "http:\/\/localhost:9900",
+  "basePath": "\/",
+  "paths": {
+    "\/currency-exchange\/convert": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/admin\/login": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/admin\/logout": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/admin\/user-listing": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/admin\/create": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "avatar",
+                "address",
+                "phone_number"
+              ],
+              "properties": {
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "is_marketing": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/admin\/user-edit\/{user}": {
+      "put": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "address",
+                "phone_number"
+              ],
+              "properties": {
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "is_marketing": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/admin\/user-delete\/{user}": {
+      "delete": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/user\/login": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/user\/logout": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/user\/create": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "address",
+                "phone_number"
+              ],
+              "properties": {
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "is_marketing": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/user": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/user\/edit": {
+      "put": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "password",
+                "address",
+                "phone_number"
+              ],
+              "properties": {
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "is_marketing": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/user\/forgot-password": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/user\/reset-password-token": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "token",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/products": {
+      "get": {
+        "summary": "Display a listing of the resource.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/product\/create": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "title",
+                "category_uuid",
+                "price",
+                "description",
+                "image",
+                "brand"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "category_uuid": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/product\/{product}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update the specified resource in storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "title",
+                "category_uuid",
+                "price",
+                "description",
+                "image",
+                "brand"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "category_uuid": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update the specified resource in storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "title",
+                "category_uuid",
+                "price",
+                "description",
+                "image",
+                "brand"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "category_uuid": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Remove the specified resource from storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/order-statuses": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/orders": {
+      "get": {
+        "summary": "Display a listing of the resource.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/order\/create": {
+      "post": {
+        "summary": "Store a newly created resource in storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "order_status_uuid",
+                "payment_uuid",
+                "products",
+                "products.*.product_id",
+                "products.*.quantity",
+                "billing",
+                "shipping"
+              ],
+              "properties": {
+                "order_status_uuid": {
+                  "type": "string"
+                },
+                "payment_uuid": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "billing": {
+                  "type": "string"
+                },
+                "shipping": {
+                  "type": "string"
+                },
+                "delivery_fee": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/order\/{order}": {
+      "get": {
+        "summary": "Display the specified resource.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update the specified resource in storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "order_status_uuid",
+                "payment_uuid",
+                "products",
+                "products.*.product_id",
+                "products.*.quantity",
+                "billing",
+                "shipping"
+              ],
+              "properties": {
+                "order_status_uuid": {
+                  "type": "string"
+                },
+                "payment_uuid": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "billing": {
+                  "type": "string"
+                },
+                "shipping": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update the specified resource in storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "order_status_uuid",
+                "payment_uuid",
+                "products",
+                "products.*.product_id",
+                "products.*.quantity",
+                "billing",
+                "shipping"
+              ],
+              "properties": {
+                "order_status_uuid": {
+                  "type": "string"
+                },
+                "payment_uuid": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "product_id": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "billing": {
+                  "type": "string"
+                },
+                "shipping": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Remove the specified resource from storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/order\/{order}\/download": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/payment\/create": {
+      "post": {
+        "summary": "Store a newly created resource in storage.",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "\"credit_card\"",
+                    "\"cash_on_delivery\"",
+                    "\"bank_transfer\""
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/categories": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/brands": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/brand\/{brand}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "brand",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      },
+      "put": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "brand",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "brand",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/file\/upload": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "file"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "\/api\/v1\/main\/promotions": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/main\/blog": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/api\/v1\/main\/blog\/{post}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "post",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    },
+    "\/": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "\/password\/reset\/{token}": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@ class StorePaymentRequest extends FormRequest
     {
         return array_merge([
             'type' => ['required', 'string', Rule::in(Payment::getPaymentTypes())],
-        ], $this->getPaymentTypeValidation($this->get('type')));
+        ], $this->getPaymentTypeValidation($this->get('type', '')));
     }
 
     /**

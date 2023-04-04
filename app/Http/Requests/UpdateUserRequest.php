@@ -18,16 +18,27 @@ class UpdateUserRequest extends FormRequest
         /** @var Model $user */
         $user = $this->route('user') ?? $this->user();
 
-        return [
+        $emailValidation = [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                $user === null
+                    ? Rule::unique('users', 'email')
+                    : Rule::unique('users', 'email')->ignoreModel($user)
+            ],
+        ];
+
+        return array_merge([
             'first_name' => ['required', 'string',  'min:2'],
             'last_name' => ['required', 'string',  'min:2'],
-            'email' => ['required', 'string',  'email', Rule::unique('users')->ignoreModel($user)],
+            ...$emailValidation,
             'password' => ['required', 'string', 'confirmed'],
             'avatar' => ['nullable', 'uuid', 'exists:files,uuid'],
             'address' => ['required', 'string', 'min:6'],
             'phone_number' => ['required', 'string', 'min:6'],
             'is_marketing' => ['nullable', 'boolean'],
-        ];
+        ], $emailValidation);
     }
 
     public function authorize(): bool

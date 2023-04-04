@@ -30,3 +30,9 @@ You need a private key, public key, and a paraphrase secret in order to authenti
 - Generate secret: Use this command to generate a secret paraphrase: `php artisan jwt:secret`
 
 The private and public keys are located in the base directory of the application. To have these files in a different location, `cd` into the directory and run the above first and second commands. Do not forget to update the paths in the config: `auth.jwt.public_key` and `auth.jwt.private_key`
+
+### 5. Swagger Documentation
+
+A Swagger documentation for the application API has been generated, and is available in the application base directory as `swagger.json`.
+
+However, to generate a new documentation, you can use the command: `php artisan laravel-swagger:generate`. Outputs the json content to the console.
