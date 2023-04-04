@@ -4,9 +4,25 @@
     "description": "Buckhill Backend Developer task",
     "keywords": ["petshop", "api", "buckhill", "test"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Ekojoka Chris Idakwo",
+            "email": "chris.idakwo@gmail.com"
+        }
+    ],
+    "repositories": {
+        "local": {
+            "type": "path",
+            "url": "./packages/currency-exchange",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.0",
+        "chrisidakwo/currency-exchange": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
@@ -18,7 +34,6 @@
         "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
-        "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.0",

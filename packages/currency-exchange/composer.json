@@ -1,0 +1,18 @@
+{
+    "name": "chrisidakwo/currency-exchange",
+    "type": "package",
+    "description": "Retrieve exchange rates for the day",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ekojoka Chris Idakwo",
+            "email": "chris.idakwo@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Petshop\\CurrencyExchange\\": "src/"
+        }
+    }
+}
