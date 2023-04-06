@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -18,16 +18,7 @@ class UpdateUserRequest extends FormRequest
         /** @var Model $user */
         $user = $this->route('user') ?? $this->user();
 
-        $emailValidation = [
-            'email' => [
-                'required',
-                'string',
-                'email',
-                $user === null
-                    ? Rule::unique('users', 'email')
-                    : Rule::unique('users', 'email')->ignoreModel($user)
-            ],
-        ];
+        $emailValidation = $this->getEmailValidation($user);
 
         return array_merge([
             'first_name' => ['required', 'string',  'min:2'],
@@ -44,5 +35,22 @@ class UpdateUserRequest extends FormRequest
     public function authorize(): bool
     {
         return $this->user() !== null;
+    }
+
+    /**
+     * @return array<string, array<string|object>>
+     */
+    protected function getEmailValidation(Model|null $user): array
+    {
+        return [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                $user === null
+                    ? Rule::unique('users', 'email')
+                    : Rule::unique('users', 'email')->ignoreModel($user),
+            ],
+        ];
     }
 }

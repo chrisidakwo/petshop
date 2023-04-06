@@ -26,7 +26,6 @@ class EcbExchangeProviderTest extends TestCase
         $this->apiClient = Mockery::mock(EcbApiClient::class);
 
         $this->provider = new EcbExchangeProvider(
-            app: $this->app,
             apiClient: $this->apiClient,
         );
     }

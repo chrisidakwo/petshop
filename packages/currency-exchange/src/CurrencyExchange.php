@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Petshop\CurrencyExchange;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Foundation\Application;
 use Petshop\CurrencyExchange\Contracts\CurrencyExchange as ICurrencyExchange;
 use Petshop\CurrencyExchange\Contracts\ExchangeProvider;
 use Petshop\CurrencyExchange\Exception\InvalidCurrency;
@@ -13,8 +12,7 @@ use Petshop\CurrencyExchange\Exception\InvalidCurrency;
 class CurrencyExchange implements ICurrencyExchange
 {
     protected string|null $sourceCurrency;
-    protected string $destCurrency;
-    protected Application $app;
+    protected string|null $destCurrency;
     protected ExchangeProvider|null $provider;
 
     /**
@@ -25,35 +23,26 @@ class CurrencyExchange implements ICurrencyExchange
     /**
      * @param array<string, string> $providers
      */
-    public function __construct(Application $app, array $providers)
+    public function __construct(array $providers)
     {
         $this->sourceCurrency = null;
+        $this->destCurrency = null;
 
         $this->providers = $providers;
-        $this->app = $app;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function convert(int|float $amount): ExchangeRate
     {
         return $this->getExchangeRate($this->destCurrency, $amount);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function from(string $currency = null): static
+    public function from(string|null $currency = null): static
     {
         $this->sourceCurrency = $currency;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function to(string $currency): static
     {
         $this->destCurrency = $currency;
@@ -75,20 +64,18 @@ class CurrencyExchange implements ICurrencyExchange
 
         $this->assertSourceAndDestinationCurrenciesAreValid();
 
-        $exchangeRate = $this->provider->getRate($this->destCurrency);
+        $exchangeRate = $this->provider->getRate($destCurrency);
 
         return $exchangeRate->setSourceAmount($amount);
     }
 
     /**
      * Get default currency from cache
-     *
-     * @throws BindingResolutionException
      */
     public function getSourceCurrency(): string
     {
         /** @var string $defaultCurrency */
-        $defaultCurrency = $this->app->make('config')->get('currency-exchange.default_currency');
+        $defaultCurrency = config('currency-exchange.default_currency');
 
         return $this->sourceCurrency !== null ? $this->sourceCurrency : $defaultCurrency;
     }
@@ -108,36 +95,30 @@ class CurrencyExchange implements ICurrencyExchange
      */
     protected function assertSourceAndDestinationCurrenciesAreValid(): void
     {
-        $availableProviders = $this->providers;
-
-        /** @var array<int, string> $availableProviders */
-        $providersKeys = array_keys($availableProviders);
-
         $sourceCurrency = $this->sourceCurrency;
         $destCurrency = $this->destCurrency;
 
-        if (! in_array($sourceCurrency, $providersKeys)) {
-            throw new InvalidCurrency("The source currency [$sourceCurrency] is not supported");
+        if (! in_array($sourceCurrency, array_keys($this->providers))) {
+            throw new InvalidCurrency("The source currency [{$sourceCurrency}] is not supported");
         }
 
-        /** @var ExchangeProvider $provider */
-        $this->provider = $provider = match(is_string($availableProviders[$sourceCurrency])) {
-            true => new $availableProviders[$sourceCurrency](
-                $this->app,
-            ),
-            false => $availableProviders[$sourceCurrency],
+        $this->provider = $provider = match (is_string($this->providers[$sourceCurrency])) {
+            true => new $this->providers[$sourceCurrency](),
+            false => $this->providers[$sourceCurrency],
         };
 
+        /** @var ExchangeProvider $provider */
+
         if ($sourceCurrency !== $provider->getSourceCurrency()) {
-            $providerClass = get_class($provider);
+            $providerClass = $provider::class;
             throw new InvalidCurrency(
-                "The provided source currency [$sourceCurrency] is not supported by [$providerClass]"
+                "The provided source currency [{$sourceCurrency}] is not supported by [{$providerClass}]"
             );
         }
 
-        if (! in_array($destCurrency, $provider->getSupportedCurrencies())) {
+        if ($destCurrency === null || ! in_array($destCurrency, $provider->getSupportedCurrencies())) {
             throw new InvalidCurrency(
-                "The provided destination currency [$destCurrency] is not supported"
+                "The provided destination currency [{$destCurrency}] is not supported"
             );
         }
     }

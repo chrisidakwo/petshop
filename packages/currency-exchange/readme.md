@@ -64,7 +64,7 @@ With the facade, the currency converter object is bootstrapped with the defaults
 
 #### Note
 
-You do not need to provide the `->from()` method when interacting with a `CurrencyExchange` object. The source currency can be easily retrieved from the config.
+You do not need to provide the `->from()` method when interacting with a `CurrencyExchange` object (as is shown in the first example). The source currency can be easily retrieved from the config.
 
 
 

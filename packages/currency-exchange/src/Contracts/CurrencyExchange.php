@@ -25,5 +25,5 @@ interface CurrencyExchange
     /**
      * Source currency
      */
-    public function from(string $currency = null): static;
+    public function from(string|null $currency = null): static;
 }

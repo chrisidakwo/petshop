@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use Exception;
 use App\Auth\Jwt;
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Authenticate extends Middleware
@@ -28,7 +28,7 @@ class Authenticate extends Middleware
      *
      * @throws AuthenticationException
      */
-    protected function authenticate($request, array $guards): void
+    protected function authenticate(Request $request, array $guards): void
     {
         if (count($guards) === 0) {
             $guards = [null];

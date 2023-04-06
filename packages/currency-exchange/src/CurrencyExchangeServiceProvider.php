@@ -9,24 +9,24 @@ use Illuminate\Support\ServiceProvider;
 
 class CurrencyExchangeServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/currency-exchange.php', 'currency-exchange',
+            __DIR__ . '/../config/currency-exchange.php',
+            'currency-exchange',
         );
 
         $this->app->bind(
             \Petshop\CurrencyExchange\Contracts\CurrencyExchange::class,
-            function (Application $app) {
+            function (Application $app): CurrencyExchange {
                 return new CurrencyExchange(
-                    app: $app,
                     providers: $app->make('config')->get('currency-exchange.exchange_providers'),
                 );
             }
         );
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../config/currency-exchange.php' => config_path('currency_exchange.php'),

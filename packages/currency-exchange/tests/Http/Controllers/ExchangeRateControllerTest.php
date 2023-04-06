@@ -23,7 +23,7 @@ class ExchangeRateControllerTest extends TestCase
                 )
             );
 
-        $response = $this->getJson(route('currency-exchange.rates.convert', [
+        $response = $this->getJson(route('api.currency-exchange.convert', [
             'amount' => 320,
             'currency' => 'INR',
         ]));

@@ -21,9 +21,9 @@ class EcbApiClient
             try {
                 $data = file_get_contents($url);
             } catch (Exception $exception) {
-                $provider = get_class($this);
+                $provider = $this::class;
                 throw new ExchangeRateNotFound(
-                    "Could not retrieve rates from API [$provider]",
+                    "Could not retrieve rates from API [{$provider}]",
                     500,
                     $exception,
                 );

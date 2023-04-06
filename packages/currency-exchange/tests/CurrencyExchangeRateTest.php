@@ -26,7 +26,6 @@ class CurrencyExchangeRateTest extends TestCase
         $this->provider = Mockery::mock(EcbExchangeProvider::class);
 
         $this->currencyExchange = new \Petshop\CurrencyExchange\CurrencyExchange(
-            app: $this->app,
             providers: [
                 'EUR' => $this->provider,
             ]

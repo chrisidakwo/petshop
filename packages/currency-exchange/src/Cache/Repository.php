@@ -12,9 +12,6 @@ class Repository implements Cache
 {
     protected LaravelRepository $laravelRepository;
 
-    /**
-     * @param LaravelRepository $laravelRepository
-     */
     public function __construct(LaravelRepository $laravelRepository)
     {
         $this->laravelRepository = $laravelRepository;
@@ -39,8 +36,6 @@ class Repository implements Cache
     {
         /** @var int $dateTime */
         $dateTime = strtotime("+7 days");
-
-        dd($dateTime);
 
         return $this->laravelRepository->set($key, $value, $dateTime);
     }

@@ -5,6 +5,13 @@ return [
     'exchange_providers' => [
         'EUR' => Petshop\CurrencyExchange\Providers\Ecb\EcbExchangeProvider::class,
     ],
+    'route' => [
+        'name' => 'convert',
+        'configurations' => [
+            'prefix' => 'api/v1/currency-exchange',
+            'as' => 'api.currency-exchange.',
+        ],
+    ],
     'supported_currencies' => [
         'EUR',
         'USD',

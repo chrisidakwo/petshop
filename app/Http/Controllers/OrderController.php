@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\JsonResponse;
-use App\Http\Services\OrderService;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Order\OrderResourceCollection;
+use App\Http\Services\OrderService;
+use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
@@ -71,6 +71,7 @@ class OrderController extends Controller
 
         $orderSubTotal = $order->subTotalAmount();
 
+        /** @var \Barryvdh\DomPDF\PDF $pdf */
         $pdf = Pdf::loadView('orders.receipt', compact('order', 'orderSubTotal'))
             ->setPaper('A4');
 

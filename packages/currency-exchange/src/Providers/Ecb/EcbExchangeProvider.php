@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Petshop\CurrencyExchange\Providers\Ecb;
 
-use Exception;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Foundation\Application;
 use Petshop\CurrencyExchange\Exception\ExchangeRateNotFound;
 use Petshop\CurrencyExchange\ExchangeRate;
 use Petshop\CurrencyExchange\Providers\AbstractExchangeProvider;
@@ -19,26 +16,23 @@ class EcbExchangeProvider extends AbstractExchangeProvider
     protected SimpleXMLElement $data;
     protected EcbApiClient $apiClient;
 
-    public function __construct(Application $app, EcbApiClient $apiClient = null)
+    public function __construct(EcbApiClient|null $apiClient = null)
     {
-        parent::__construct($app);
-
         $this->apiClient = $apiClient !== null ? $apiClient : new EcbApiClient();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getSourceCurrency(): string
     {
         return 'EUR';
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<int, ExchangeRate>
      */
     public function getRates(): array
     {
+        // TODO: Get from cache. If it does not exist, then get from API
+
         $this->data = $this->apiClient->getData(self::API_URL);
 
         $rates = [];
@@ -51,18 +45,19 @@ class EcbExchangeProvider extends AbstractExchangeProvider
             );
         }
 
+        if (count($rates) === 0) {
+            throw new ExchangeRateNotFound('Could not retrieve exchange rates');
+        }
+
         return $rates;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRate(string $destCurrency): ExchangeRate
     {
         $this->data = $this->apiClient->getData(self::API_URL);
 
         foreach ($this->data->children() as $child) {
-            if ((string) $child->attributes()->currency == $destCurrency) {
+            if ((string) $child->attributes()->currency === $destCurrency) {
                 return new ExchangeRate(
                     sourceCurrency: $this->getSourceCurrency(),
                     destCurrency: $destCurrency,
@@ -77,12 +72,10 @@ class EcbExchangeProvider extends AbstractExchangeProvider
     }
 
     /**
-     * @inheritDoc
-     *
-     * @throws BindingResolutionException
+     * @return array<string>
      */
     public function getSupportedCurrencies(): array
     {
-        return $this->app->make('config')->get('currency-exchange.supported_currencies');
+        return config('currency-exchange.supported_currencies');
     }
 }

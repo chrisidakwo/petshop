@@ -13,11 +13,10 @@ class ExchangeRate
 
     public function __construct(
         string $sourceCurrency,
-        string $destCurrency = null,
+        string|null $destCurrency = null,
         int|float $sourceAmount = 0,
         int|float $exchangeAmount = 0,
-    )
-    {
+    ) {
         $this->sourceCurrency = $sourceCurrency;
         $this->sourceAmount = $sourceAmount;
         $this->destCurrency = $destCurrency;
