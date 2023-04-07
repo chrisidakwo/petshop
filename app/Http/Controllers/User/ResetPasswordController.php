@@ -19,6 +19,9 @@ class ResetPasswordController extends Controller
         return 'Reset Password Form';
     }
 
+    /**
+     * Reset a user password with a token
+     */
     public function reset(ResetPasswordRequest $request): JsonResponse
     {
         $response = Password::reset($request->validated(), function (mixed $user, string $password): void {

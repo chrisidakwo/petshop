@@ -22,7 +22,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * List all orders
      */
     public function index(Request $request): JsonResponse
     {
@@ -42,7 +42,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new order
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
@@ -56,7 +56,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Fetch an order
      */
     public function show(Request $request, Order $order): JsonResponse
     {
@@ -65,6 +65,9 @@ class OrderController extends Controller
         );
     }
 
+    /**
+     * Download an order
+     */
     public function download(Order $order): Response
     {
         $order = $order->load(['orderStatus', 'payment', 'user']);
@@ -79,7 +82,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing order
      */
     public function update(UpdateOrderRequest $request, Order $order): JsonResponse
     {
@@ -92,7 +95,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete an existing order
      */
     public function destroy(Order $order): JsonResponse
     {

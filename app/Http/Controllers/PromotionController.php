@@ -18,6 +18,8 @@ class PromotionController extends Controller
     }
 
     /**
+     * List all promotions
+     *
      * @throws NotFoundFilterException
      */
     public function __invoke(Request $request): JsonResponse

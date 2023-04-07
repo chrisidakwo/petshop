@@ -17,7 +17,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^10.0",
+        "mtrajano/laravel-swagger": "^0.6.4"
     },
     "autoload": {
         "psr-4": {

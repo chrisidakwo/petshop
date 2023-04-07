@@ -35,4 +35,4 @@ The private and public keys are located in the base directory of the application
 
 A Swagger documentation for the application API has been generated, and is available in the application base directory as `swagger.json`.
 
-However, to generate a new documentation, you can use the command: `php artisan laravel-swagger:generate`. Outputs the json content to the console.
+However, to generate a new documentation, you can use the command: `php artisan laravel-swagger:generate > swagger.json`. The generated file can be found in the application base directory.

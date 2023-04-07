@@ -18,6 +18,8 @@ class FileController extends Controller
     }
 
     /**
+     * Upload a file
+     *
      * @throws FilesystemException
      */
     public function upload(FileUploadRequest $request): JsonResponse

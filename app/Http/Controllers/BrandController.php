@@ -19,6 +19,9 @@ class BrandController extends Controller
         $this->middleware(['auth:api'])->only(['update', 'delete']);
     }
 
+    /**
+     * List all brands
+     */
     public function index(Request $request): JsonResponse
     {
         $page = $request->get('page', 1);
@@ -36,11 +39,17 @@ class BrandController extends Controller
         return BrandResourceCollection::make($brands)->toResponse($request);
     }
 
+    /**
+     * Fetch a brand
+     */
     public function show(Request $request, Brand $brand): JsonResponse
     {
         return $this->response(BrandResource::make($brand)->toArray($request));
     }
 
+    /**
+     * Update an existing brand
+     */
     public function update(UpdateBrandRequest $request, Brand $brand): JsonResponse
     {
         $brand = $this->brandService->update($brand, $request->validated('title'));
@@ -48,6 +57,9 @@ class BrandController extends Controller
         return $this->response(BrandResource::make($brand)->toArray($request));
     }
 
+    /**
+     * Delete an existing brand
+     */
     public function delete(Brand $brand): JsonResponse
     {
         $result = $this->brandService->delete($brand);

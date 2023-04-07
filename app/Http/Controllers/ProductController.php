@@ -22,7 +22,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * List all products
      *
      * @throws NotFoundFilterException
      */
@@ -46,6 +46,9 @@ class ProductController extends Controller
         return ProductResourceCollection::make($products)->toResponse($request);
     }
 
+    /**
+     * Create a new product
+     */
     public function store(ProductRequest $request): JsonResponse
     {
         $product = $this->productService->create($request->validated());
@@ -55,13 +58,16 @@ class ProductController extends Controller
         ], 201);
     }
 
+    /**
+     * Fetch a product
+     */
     public function show(Request $request, Product $product): JsonResponse
     {
         return ProductResource::make($product)->toResponse($request);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing product
      */
     public function update(ProductRequest $request, Product $product): JsonResponse
     {
@@ -73,7 +79,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete an existing product
      */
     public function destroy(Product $product): JsonResponse
     {

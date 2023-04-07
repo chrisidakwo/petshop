@@ -17,6 +17,9 @@ class PostController extends Controller
     {
     }
 
+    /**
+     * List all posts
+     */
     public function listPosts(Request $request): JsonResponse
     {
         $page = $request->get('page', 1);
@@ -34,6 +37,9 @@ class PostController extends Controller
         return PostResourceCollection::make($posts)->toResponse($request);
     }
 
+    /**
+     * Fetch a post
+     */
     public function viewPost(Request $request, Post $post): JsonResponse
     {
         return $this->response(

@@ -15,6 +15,9 @@ class OrderStatusController extends Controller
     {
     }
 
+    /**
+     * List all order statuses
+     */
     public function index(Request $request): JsonResponse
     {
         $page = (int) $request->get('page', 1);

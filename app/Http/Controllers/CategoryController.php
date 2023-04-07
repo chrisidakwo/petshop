@@ -15,6 +15,9 @@ class CategoryController extends Controller
     {
     }
 
+    /**
+     * List all categories
+     */
     public function index(Request $request): JsonResponse
     {
         $page = (int) $request->get('page', 1);

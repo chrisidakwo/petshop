@@ -11,6 +11,9 @@ use App\Http\Requests\Auth\ForgotPasswordRequest;
 
 class ForgotPasswordController extends Controller
 {
+    /**
+     * Creates a token to reset a user password
+     */
     public function index(ForgotPasswordRequest $request): JsonResponse
     {
         $email = $request->validated('email');

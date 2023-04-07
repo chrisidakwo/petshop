@@ -25,6 +25,8 @@ class AdminController extends Controller
     }
 
     /**
+     * Create an admin account
+     *
      * @throws JwtException
      */
     public function store(StoreAdminUserRequest $request): JsonResponse
@@ -46,6 +48,8 @@ class AdminController extends Controller
     }
 
     /**
+     * Update a user account
+     *
      * @throws JwtException
      */
     public function update(UpdateUserRequest $request, User $user): JsonResponse
@@ -59,6 +63,9 @@ class AdminController extends Controller
         return UserResource::make($user)->toResponse($request);
     }
 
+    /**
+     * Delete a user account
+     */
     public function delete(DeleteUserRequest $request, User $user): JsonResponse
     {
         $result = $this->userService->delete($user);

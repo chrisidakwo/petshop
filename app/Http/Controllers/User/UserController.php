@@ -27,6 +27,8 @@ class UserController extends Controller
     }
 
     /**
+     * Create a user account
+     *
      * @throws JwtException
      */
     public function store(StoreUserRequest $request): JsonResponse
@@ -38,6 +40,9 @@ class UserController extends Controller
         return $this->response(UserResource::make($user)->toArray($request), 201);
     }
 
+    /**
+     * View a user account
+     */
     public function show(Request $request): JsonResponse
     {
         $user = UserResource::make($request->user())->toArray($request);
@@ -46,6 +51,8 @@ class UserController extends Controller
     }
 
     /**
+     * Update a user account
+     *
      * @throws JwtException
      */
     public function update(UpdateUserRequest $request): JsonResponse
@@ -62,6 +69,9 @@ class UserController extends Controller
         return $this->response(UserResource::make($user)->toArray($request));
     }
 
+    /**
+     * Delete a user account
+     */
     public function delete(DeleteUserRequest $request): JsonResponse
     {
         /** @var User $user */

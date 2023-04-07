@@ -16,7 +16,7 @@ class PaymentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new payment
      */
     public function store(StorePaymentRequest $request): JsonResponse
     {

@@ -21,6 +21,8 @@ class UserController extends Controller
     }
 
     /**
+     * List all users
+     *
      * @throws NotFoundFilterException
      */
     public function index(Request $request): JsonResponse
