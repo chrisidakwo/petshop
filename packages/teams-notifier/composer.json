@@ -1,0 +1,36 @@
+{
+    "name": "chrisidakwo/teams-notifier",
+    "description": "Send Microsoft teams notification",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ekojoka Chris Idakwo",
+            "email": "chris.idakwo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^10.6",
+        "illuminate/notifications": "^10.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Petshop\\TeamsNotifier\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Petshop\\TeamsNotifier\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Chrisidakwo\\TeamsNotifier\\TeamsNotificerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
