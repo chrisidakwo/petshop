@@ -11,12 +11,54 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
+use OpenApi\Annotations as OA;
 use Petshop\CurrencyExchange\Facades\CurrencyExchange;
 
+/**
+ * @OA\Info(
+ *     title="Currency Exchange API",
+ *     description="API routes for converting default currency",
+ *     version="1.0.0"
+ * )
+ * @OA\Tag(
+ *     name="CurrencyExchange",
+ *     description="CurrencyExchange API endpoint"
+ * )
+ */
 class ExchangeRateController extends Controller
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    /**
+     * Convert provided amount from default currency to requesting currency
+     *
+     * @OA\Get(
+     *     path="/api/v1/currency-exchange/convert",
+     *     tags={"CurrencyExchange"},
+     *     summary="Convert provided amount from default currency to requesting currency",
+     *     operationId="currency-exchange/convert",
+     *     @OA\Parameter(
+     *         name="currency",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="amount",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="number",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     )
+     * )
+     */
     public function convert(Request $request): JsonResponse
     {
         $supportedCurrencies = config('currency-exchange.supported_currencies');

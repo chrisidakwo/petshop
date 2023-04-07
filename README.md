@@ -39,4 +39,4 @@ However, to generate a new documentation, you can use the command: `php artisan 
 
 To view the Swagger documentation, visit: `http:localhost:9900/api/documentation`. Where `http://localhost:9900` is the value of your `L5_SWAGGER_CONST_HOST` env config.
 
-Visit `http:localhost:9900/api/docs` to access the parsed swagger annotations in JSON format
+Visit `http://localhost:9900/api/docs/api-docs.json` to access the parsed swagger annotations in JSON format

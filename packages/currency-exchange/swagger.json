@@ -1,1 +1,49 @@
-
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Currency Exchange API",
+        "description": "API routes for converting default currency",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/currency-exchange/convert": {
+            "get": {
+                "tags": [
+                    "CurrencyExchange"
+                ],
+                "summary": "Convert provided amount from default currency to requesting currency",
+                "description": "Convert provided amount from default currency to requesting currency",
+                "operationId": "currency-exchange/convert",
+                "parameters": [
+                    {
+                        "name": "currency",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "CurrencyExchange",
+            "description": "CurrencyExchange API endpoint"
+        }
+    ]
+}

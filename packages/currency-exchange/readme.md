@@ -2,6 +2,9 @@
 
 A package for easily converting currencies based on current exchange rates provided by the [European Central Bank](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml)
 
+### Getting Started
+
+Install the package dependencies using `composer install`
 
 ### How To Use
 
@@ -76,5 +79,8 @@ In the available config, you can define middlewares for the route using the `rou
 
 You do not need to provide the `->from()` method when interacting with a `CurrencyExchange` object (as is shown in the first example). The source currency can be easily retrieved from the config.
 
+### API Documentation
+
+A `swagger.json` file has been generated in the base directory. It contains OpenAPI documentation for the routes declared in this package. To generate a new file, use this command: `./vendor/bin/openapi src -o swagger.json`
 
 
