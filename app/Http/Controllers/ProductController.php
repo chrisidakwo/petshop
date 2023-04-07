@@ -13,7 +13,14 @@ use App\Http\Services\ProductService;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductResourceCollection;
 use Fouladgar\EloquentBuilder\Exceptions\NotFoundFilterException;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Tag(
+ *     name="Products",
+ *     description="Products API endpoint"
+ * )
+ */
 class ProductController extends Controller
 {
     public function __construct(private ProductService $productService)
@@ -23,6 +30,73 @@ class ProductController extends Controller
 
     /**
      * List all products
+     *
+     * @OA\Get(
+     *     path="/api/v1/products",
+     *     tags={"Products"},
+     *     summary="List all products",
+     *     operationId="products/index",
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="sortBy",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="desc",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="boolean",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="category",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="price",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="brand",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="title",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     )
+     * )
      *
      * @throws NotFoundFilterException
      */
@@ -48,6 +122,73 @@ class ProductController extends Controller
 
     /**
      * Create a new product
+     *
+     * @OA\Post(
+     *     path="/api/v1/product/create",
+     *     tags={"Products"},
+     *     summary="Create a new product",
+     *     operationId="product/create",
+     *     security={{"bearerAuth": {} }},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 required={"category_uuid", "title", "price", "description", "metadata"},
+     *                 @OA\Property(
+     *                     property="category_uuid",
+     *                     description="Category UUID",
+     *                     type="string",
+     *                     format="uuid"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="Product title",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="price",
+     *                     description="Product price",
+     *                     type="number",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     description="Product description",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="metadata",
+     *                     description="Product metadata",
+     *                     type="object",
+     *                     @OA\Property(
+     *                             property="image",
+     *                             description="Image UUID",
+     *                             type="string",
+     *                             format="uuid"
+     *                         ),
+     *                         @OA\Property(
+     *                             property="brand",
+     *                             description="Brand UUID",
+     *                             type="string",
+     *                             format="uuid"
+     *                         ),
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     ),
+     * )
      */
     public function store(ProductRequest $request): JsonResponse
     {
@@ -60,6 +201,30 @@ class ProductController extends Controller
 
     /**
      * Fetch a product
+     *
+     * @OA\Get(
+     *     path="/api/v1/product/{uuid}",
+     *     tags={"Products"},
+     *     summary="Fetch a product",
+     *     operationId="product/show",
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="uuid"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     )
+     * )
      */
     public function show(Request $request, Product $product): JsonResponse
     {
@@ -68,6 +233,82 @@ class ProductController extends Controller
 
     /**
      * Update an existing product
+     *
+     * @OA\Put(
+     *     path="/api/v1/product/{uuid}",
+     *     tags={"Products"},
+     *     summary="Update an existing product",
+     *     operationId="product/update",
+     *     security={{"bearerAuth": {} }},
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="uuid"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 required={"category_uuid", "title", "price", "description", "metadata"},
+     *                 @OA\Property(
+     *                     property="category_uuid",
+     *                     description="Category UUID",
+     *                     type="string",
+     *                     format="uuid"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="Product title",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="price",
+     *                     description="Product price",
+     *                     type="number",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     description="Product description",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="metadata",
+     *                     description="Product metadata",
+     *                     type="object",
+     *                     @OA\Property(
+     *                             property="image",
+     *                             description="Image UUID",
+     *                             type="string",
+     *                             format="uuid"
+     *                         ),
+     *                         @OA\Property(
+     *                             property="brand",
+     *                             description="Brand UUID",
+     *                             type="string",
+     *                             format="uuid"
+     *                         ),
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     ),
+     * )
      */
     public function update(ProductRequest $request, Product $product): JsonResponse
     {
@@ -80,6 +321,35 @@ class ProductController extends Controller
 
     /**
      * Delete an existing product
+     *
+     * @OA\Delete(
+     *     path="/api/v1/product/{uuid}",
+     *     tags={"Products"},
+     *     summary="Delete an existing product",
+     *     operationId="product/delete",
+     *     security={{"bearerAuth": {} }},
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="uuid"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     ),
+     * )
      */
     public function destroy(Product $product): JsonResponse
     {

@@ -5,11 +5,31 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+/**
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="Petshop API",
+ *      description="API routes for the Petshop coding exercies",
+ *      @OA\Contact(
+ *          email="chris.idakwo@gmail.com"
+ *      ),
+ *      @OA\License(
+ *          name="Apache 2.0",
+ *          url="https://apache.org/licenses/LICENSE-2.0.html"
+ *      )
+ * )
+ *
+ * @OA\Server(
+ *      url=L5_SWAGGER_CONST_HOST,
+ *      description="Base API URL"
+ * )
+ */
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;

@@ -10,6 +10,7 @@ return [
         'configurations' => [
             'prefix' => 'api/v1/currency-exchange',
             'as' => 'api.currency-exchange.',
+            'middleware' => [],
         ],
     ],
     'supported_currencies' => [

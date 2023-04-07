@@ -11,11 +11,9 @@ A package for easily converting currencies based on current exchange rates provi
 
 use Petshop\CurrencyExchange\CurrencyExchange;
 
-$app = \Illuminate\Container\Container::getInstance();
 $providers = config('currency-exchange.exchange_providers');
 
 $currencyExchange = new CurrencyExchange(
-    $app,
     $providers,
 );
 
@@ -40,11 +38,9 @@ $exchangeRate->getConvertedAmount();
 
 use Petshop\CurrencyExchange\CurrencyExchange;
 
-$app = \Illuminate\Container\Container::getInstance();
 $providers = config('currency-exchange.exchange_providers');
 
 $currencyExchange = new CurrencyExchange(
-    $app,
     $providers,
 );
 
@@ -61,6 +57,20 @@ $exchangeRate =  CurrencyExchange::to('USD')->convert(918);
 $exchangeRate = CurrencyExchange::getExchangeRate('INR', 320);
 ```
 With the facade, the currency converter object is bootstrapped with the defaults available in the config.
+
+4. The package exposes a GET route: `api/v1/currency-exchange/convert`. This can be modified in the available config. The route requires an amount and a destination currency.
+```http request
+GET http://localhost:9900/api/v1/currency-exchange/convert
+Content-Type: application/json
+Accept: application/json
+
+{
+  "amount": 380,
+  "currency": "NOK",
+}
+```
+
+In the available config, you can define middlewares for the route using the `route.configurations` key.
 
 #### Note
 

@@ -18,6 +18,6 @@ use App\Http\Controllers\User\ResetPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('auth:web');
+});
 
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');

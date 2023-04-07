@@ -28,7 +28,7 @@ class Authenticate extends Middleware
      *
      * @throws AuthenticationException
      */
-    protected function authenticate(Request $request, array $guards): void
+    protected function authenticate($request, array $guards): void
     {
         if (count($guards) === 0) {
             $guards = [null];

@@ -10,7 +10,14 @@ use App\Http\Services\FileService;
 use App\Http\Requests\FileUploadRequest;
 use App\Http\Resources\File\FileResource;
 use League\Flysystem\FilesystemException;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Tag(
+ *     name="File",
+ *     description="File API endpoint"
+ * )
+ */
 class FileController extends Controller
 {
     public function __construct(private FileService $fileService)
@@ -19,6 +26,36 @@ class FileController extends Controller
 
     /**
      * Upload a file
+     *
+     * @OA\Post(
+     *     path="/api/v1/file/upload",
+     *     tags={"File"},
+     *     summary="Upload a file",
+     *     operationId="file/upload",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 required={"file"},
+     *                 @OA\Property(
+     *                     property="file",
+     *                     description="File to upload",
+     *                     type="string",
+     *                     format="binary",
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Ok",
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity"
+     *     ),
+     * )
      *
      * @throws FilesystemException
      */

@@ -35,4 +35,20 @@ class ExchangeRateControllerTest extends TestCase
             ->assertJsonPath('data.exchange_rate', 89.59)
             ->assertJsonPath('data.converted_amount', 89.59 * 320);
     }
+
+    public function testItValidatesOnCurrency(): void
+    {
+        $response = $this->getJson(route('api.currency-exchange.convert', [
+            'amount' => 320,
+            'currency' => 'EUR',
+        ]));
+
+        $response->assertStatus(422)
+            ->assertJsonPath('message', 'We do not support converting from EUR to EUR')
+            ->assertJsonValidationErrors([
+                'currency' => [
+                    'We do not support converting from EUR to EUR',
+                ],
+            ]);
+    }
 }
