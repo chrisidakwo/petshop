@@ -28,14 +28,14 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "lcobucci/jwt": "^5.0",
-        "mohammad-fouladgar/eloquent-builder": "^4.2",
-        "mtrajano/laravel-swagger": "^0.6.4"
+        "mohammad-fouladgar/eloquent-builder": "^4.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "mockery/mockery": "^1.4.4",
+        "mtrajano/laravel-swagger": "^0.6.4",
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.0",
         "nunomaduro/phpinsights": "^2.8",
